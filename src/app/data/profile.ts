@@ -157,11 +157,12 @@ export const LANGUAGES: string[] = ['Català', 'Castellà', 'Anglès'];
  */
 export const COLLABORATIONS: Project[] = [
   {
-    title: 'Web client u',
-    description: 'Què fa la web i per a qui és, en una frase.',
+    title: 'Redisseny 2026',
+    description: 'Institut Municipal d’Hisenda de Barcelona',
     year: '2026',
     tags: ['Drupal', 'SCSS'],
     icon: 'globe2',
+    url: 'https://ajuntament.barcelona.cat/hisenda/ca',
     role: 'Maquetació de la portada i les fitxes',
     involvement: 3,
   },

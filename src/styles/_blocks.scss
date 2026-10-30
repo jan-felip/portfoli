@@ -326,11 +326,11 @@
   &--primary {
     border-color: $color-accent;
     background: $color-accent;
-    color: $color-black;
+    color: $color-white;
 
     &:hover {
       border-color: $text;
-      color: $color-black;
+      color: $color-white;
     }
   }
 }

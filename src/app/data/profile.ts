@@ -76,12 +76,13 @@ export const PROFILE: Profile = {
   name: 'Jan Felip',
   initials: 'JF',
   tagline: 'Desenvolupo webs i eines a mida, del disseny al servidor.',
-  rolePrefix: 'Sóc',
+  // Prefix fix davant de cada frase (deixa'l buit si les frases ja són completes).
+  rolePrefix: '',
   roles: [
-    'desenvolupador web full stack',
-    'estudiant de DAW',
-    'apassionat de les xarxes i els servidors',
-    'algú que cuida cada píxel',
+    'Sóc desenvolupador web full stack',
+    'Cursant un Cicle Superior de Desenvolupament d’Aplicacions Web',
+    'Apassionat de les xarxes i els servidors',
+    'Algú que cuida cada píxel',
   ],
   location: 'Tàrrega, Lleida',
   email: 'hola@exemple.cat',

@@ -21,7 +21,7 @@ import { Spacer } from '../sections/spacer';
       size="sm"
       eyebrow="Col·laboracions"
       title="Webs on he col·laborat"
-      intro="A Use-It anem rotant projectes. En unes webs hi he fet gran part de la feina i en d’altres hi he donat un cop de mà."
+      intro="A Use-It anem rotant projectes. En unes webs he fet força feina i en d’altres hi he donat un cop de mà."
     />
     <app-spacer />
     <app-projects [items]="collaborations" heading="Col·laboracions" panelId="col-laboracions" countLabel="webs" />

@@ -26,7 +26,9 @@ import { Typewriter } from '../shared/typewriter';
         <div class="region-hero__row region-hero__row--prompt">
           <div class="block block-prompt reveal-item" style="animation-delay: 500ms">
             <p class="block-prompt__text">
-              <span class="block-prompt__prefix">{{ profile.rolePrefix }}</span>
+              @if (profile.rolePrefix) {
+                <span class="block-prompt__prefix">{{ profile.rolePrefix }}</span>
+              }
               <app-typewriter [phrases]="profile.roles" />
             </p>
 

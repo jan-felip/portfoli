@@ -10,7 +10,7 @@ import { ThemeSwitch } from '../shared/theme-switch';
   template: `
     <div class="region-header__inner">
       <a class="block block-brand" routerLink="/" [attr.aria-label]="profile.name + ', inici'">
-        <span class="block-brand__mark">{{ profile.initials }}</span>
+        <img class="block-brand__logo" src="logo-j.svg" alt="" width="22" height="22" />
       </a>
 
       <nav class="block block-nav" aria-label="Principal">

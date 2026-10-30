@@ -45,6 +45,12 @@
   }
 }
 
+.block-brand__logo {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
 .block-nav {
   display: none;
   grid-column: 2;

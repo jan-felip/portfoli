@@ -104,9 +104,9 @@ export const PROFILE: Profile = {
 
 /** Empreses amb qui has treballat o col·laborat. */
 export const COMPANIES: Company[] = [
-  { name: 'SoluTec Tàrrega', logo: 'logos/solutec-tarrega.svg' },
-  { name: 'USE-IT Lleida', logo: 'logos/use-it-lleida.png' },
-  { name: 'Cubecat', logo: 'logos/cubecat.png' },
+  { name: 'SoluTec Tàrrega', logo: 'logos/solutec-tarrega.svg', url: 'https://www.solutec.cat' },
+  { name: 'USE-IT Lleida', logo: 'logos/use-it-lleida.png', url: 'https://useit.es/ca' },
+  { name: 'Cubecat', logo: 'logos/cubecat.png', url: 'https://www.cubecat.cat' },
 ];
 
 export const EXPERIENCE: CvEntry[] = [

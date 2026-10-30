@@ -21,7 +21,8 @@ import { InView } from '../shared/in-view';
               [attr.rel]="company.url ? 'noopener' : null"
             >
               @if (company.logo) {
-                <img class="block-logos__image" [src]="company.logo" [alt]="company.name" loading="lazy" />
+                <img class="block-logos__image" [src]="company.logo" [alt]="company.name"
+                     loading="lazy" (load)="fit($event)" />
               } @else {
                 <span class="block-logos__name">{{ company.name }}</span>
               }
@@ -34,4 +35,15 @@ import { InView } from '../shared/in-view';
 })
 export class Companies {
   protected readonly companies = COMPANIES;
+
+  /**
+   * Iguala el pes visual dels logos: tots ocupen la mateixa àrea,
+   * així un logo llarg queda més baix i un de compacte més alt.
+   * L'àrea surt de la variable CSS --logo-area (en px²).
+   */
+  protected fit(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    const ratio = img.naturalWidth / img.naturalHeight || 1;
+    img.style.setProperty('--logo-ratio', ratio.toFixed(3));
+  }
 }

@@ -535,19 +535,33 @@
   &[href]:hover {
     background: rgba($color-white, 0.03);
     color: $text;
+
+    .block-logos__image,
+    .block-logos__name {
+      transform: scale(1.08);
+    }
   }
 }
 
 // Logos en blanc pur: brightness(0) els passa a negre i invert(1) a blanc al 100%.
+// Tots tenen la mateixa àrea (--logo-area); l'alçada surt de la proporció de cada logo.
 .block-logos__image {
-  max-width: min(100%, 200px);
-  max-height: 48px;
+  --logo-area: 6600;
+  --logo-ratio: 3;
+  width: auto;
+  max-width: 100%;
+  height: calc(sqrt(var(--logo-area) / var(--logo-ratio)) * 1px);
   object-fit: contain;
   filter: brightness(0) invert(1);
+  transition: transform 0.35s $ease-out;
 
   @media (max-width: ($bp-md - 1)) {
-    max-height: 32px;
+    --logo-area: 2400;
   }
+}
+
+.block-logos__name {
+  transition: transform 0.35s $ease-out;
 }
 
 .block-logos__name {

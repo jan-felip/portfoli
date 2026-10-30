@@ -204,6 +204,27 @@
   }
 }
 
+// Títol de secció dins una pàgina: mateixa graella, menys alçada.
+.region-page-title--sm {
+  .region-page-title__inner {
+    gap: 12px;
+    padding-block: 72px 40px;
+
+    @media (max-width: ($bp-md - 1)) {
+      padding-block: 40px 24px;
+    }
+  }
+
+  .region-page-title__heading {
+    max-width: 20ch;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+  }
+
+  .region-page-title__intro {
+    font-size: 17px;
+  }
+}
+
 .region-page-title__eyebrow {
   font-size: 12px;
   letter-spacing: 0.06em;

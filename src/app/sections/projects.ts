@@ -1,12 +1,12 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { PROJECTS } from '../data/profile';
+import { Project } from '../data/profile';
 import { InView } from '../shared/in-view';
 import { ProjectCard } from './project-card';
 
 /**
- * Graella de projectes. Amb [featuredOnly] mostra només els destacats
- * i un enllaç cap a la pàgina de projectes.
+ * Panell amb una graella de projectes. Amb [moreLink] mostra un botó
+ * "Veure tots" en lloc del comptador.
  */
 @Component({
   selector: 'app-projects',
@@ -14,15 +14,15 @@ import { ProjectCard } from './project-card';
   host: { class: 'region region-content' },
   template: `
     <div class="region-content__inner">
-      <section class="block block-panel" [attr.aria-labelledby]="headingId()">
+      <section class="block block-panel" [attr.aria-labelledby]="panelId() + '-title'">
         <div class="block-panel__toolbar">
-          <h2 class="block-panel__title" [id]="headingId()">{{ heading() }}</h2>
-          @if (featuredOnly()) {
-            <a class="block-panel__more" routerLink="/projectes">
+          <h2 class="block-panel__title" [id]="panelId() + '-title'">{{ heading() }}</h2>
+          @if (moreLink(); as link) {
+            <a class="block-panel__more" [routerLink]="link">
               Veure tots <i class="bi bi-arrow-right" aria-hidden="true"></i>
             </a>
           } @else {
-            <span class="block-panel__count">{{ items().length }} projectes</span>
+            <span class="block-panel__count">{{ items().length }} {{ countLabel() }}</span>
           }
         </div>
 
@@ -40,11 +40,9 @@ import { ProjectCard } from './project-card';
   `,
 })
 export class Projects {
-  readonly featuredOnly = input(false);
+  readonly items = input.required<Project[]>();
   readonly heading = input('Projectes');
-
-  protected readonly headingId = computed(() => (this.featuredOnly() ? 'destacats' : 'projectes'));
-  protected readonly items = computed(() =>
-    this.featuredOnly() ? PROJECTS.filter((p) => p.featured) : PROJECTS,
-  );
+  readonly panelId = input('projectes');
+  readonly countLabel = input('projectes');
+  readonly moreLink = input<string>();
 }

@@ -4,7 +4,7 @@
 @mixin shell($radius: $radius) {
   border: 1px solid var(--line-strong);
   border-radius: $radius;
-  background: $color-black;
+  background: $bg;
 }
 
 @mixin pill-button {
@@ -70,14 +70,54 @@
   }
 
   &.is-active {
-    background: rgba($color-white, 0.06);
+    background: var(--tint-2);
   }
 }
 
 .block-actions {
   @include pill-button;
-  grid-column: 3;
-  justify-self: end;
+}
+
+// Interruptor de tema (clar / sistema / fosc) ---------------------------
+.block-theme__track {
+  @include shell(999px);
+  position: relative;
+  display: flex;
+  padding: 2px;
+}
+
+// Píndola que llisca sota l'opció activa.
+.block-theme__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 28px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--tint-2);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  transition: transform 0.35s $ease-out;
+}
+
+.block-theme__option {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  font-size: 12px;
+  color: $text-muted;
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  &:hover,
+  &.is-active {
+    color: $text;
+  }
 }
 
 // Portada -----------------------------------------------------------
@@ -248,7 +288,7 @@
     color: $color-black;
 
     &:hover {
-      border-color: $color-white;
+      border-color: $text;
       color: $color-black;
     }
   }
@@ -393,7 +433,7 @@
 
 .card-project__icon {
   font-size: 44px;
-  color: rgba($color-white, 0.5);
+  color: var(--fg-faint);
   transition:
     color 0.3s ease,
     transform 0.4s $ease-out;
@@ -410,9 +450,9 @@
 
 .card-project__tag {
   padding: 3px 9px;
-  border: 1px solid rgba($color-white, 0.15);
+  border: 1px solid var(--tag-border);
   border-radius: 8px;
-  background: rgba($color-black, 0.6);
+  background: var(--tag-bg);
   backdrop-filter: blur(20px);
   font-size: 11px;
   font-weight: 500;
@@ -533,7 +573,7 @@
     background-color 0.3s ease;
 
   &[href]:hover {
-    background: rgba($color-white, 0.03);
+    background: var(--tint-1);
     color: $text;
 
     .block-logos__image,
@@ -552,7 +592,7 @@
   max-width: 100%;
   height: calc(sqrt(var(--logo-area) / var(--logo-ratio)) * 1px);
   object-fit: contain;
-  filter: brightness(0) invert(1);
+  filter: var(--logo-filter);
   transition: transform 0.35s $ease-out;
 
   @media (max-width: ($bp-md - 1)) {

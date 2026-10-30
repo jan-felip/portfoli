@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { PROFILE } from '../data/profile';
+import { ThemeSwitch } from '../shared/theme-switch';
 
 @Component({
   selector: 'app-site-header',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, ThemeSwitch],
   host: { class: 'region region-header', role: 'banner' },
   template: `
     <div class="region-header__inner">
@@ -24,10 +25,13 @@ import { PROFILE } from '../data/profile';
         }
       </nav>
 
-      <a class="block block-actions" [href]="'mailto:' + profile.email">
-        <i class="bi bi-envelope" aria-hidden="true"></i>
-        <span>Contacte</span>
-      </a>
+      <div class="region-header__end">
+        <app-theme-switch />
+        <a class="block block-actions" [href]="'mailto:' + profile.email">
+          <i class="bi bi-envelope" aria-hidden="true"></i>
+          <span>Contacte</span>
+        </a>
+      </div>
     </div>
   `,
 })

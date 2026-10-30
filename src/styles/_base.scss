@@ -14,8 +14,11 @@ html {
 html,
 body {
   margin: 0;
-  background: $color-black;
+  background: $bg;
   color: $text;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 body {
@@ -74,8 +77,8 @@ button {
   z-index: 100;
   padding: 8px 14px;
   border-radius: 8px;
-  background: $color-white;
-  color: $color-black;
+  background: $text;
+  color: $bg;
   transform: translateY(-200%);
 
   &:focus {

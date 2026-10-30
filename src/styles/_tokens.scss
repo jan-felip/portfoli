@@ -3,15 +3,14 @@ $color-white: #fff;
 $color-black: #000;
 $color-accent: #618990;
 
-// Línies grises de la graella (blanc translúcid sobre negre).
-$line: rgba($color-white, 0.08);
-$line-strong: rgba($color-white, 0.14);
-$line-hover: rgba($color-white, 0.24);
-
-// Text.
-$text: $color-white;
-$text-muted: rgba($color-white, 0.62);
-$text-soft: rgba($color-white, 0.78);
+// Colors semàntics: apunten a variables CSS que canvien amb el tema.
+$bg: var(--bg);
+$text: var(--fg);
+$text-soft: var(--fg-soft);
+$text-muted: var(--fg-muted);
+$line: var(--line);
+$line-strong: var(--line-strong);
+$line-hover: var(--line-hover);
 
 // Mètriques de la graella.
 $frame-max: 1376px; // amplada entre els rails exteriors
@@ -26,13 +25,30 @@ $bp-lg: 1100px;
 
 $ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 
+// Un tema és un color de fons i un de text; la resta en surt.
+@mixin theme($scheme, $bg, $fg, $logo-filter) {
+  color-scheme: $scheme;
+  --bg: #{$bg};
+  --fg: #{$fg};
+  --fg-soft: #{rgba($fg, 0.78)};
+  --fg-muted: #{rgba($fg, 0.62)};
+  --fg-faint: #{rgba($fg, 0.5)};
+  --line: #{rgba($fg, 0.08)};
+  --line-strong: #{rgba($fg, 0.14)};
+  --line-hover: #{rgba($fg, 0.24)};
+  --tint-1: #{rgba($fg, 0.03)};
+  --tint-2: #{rgba($fg, 0.06)};
+  --tag-border: #{rgba($fg, 0.15)};
+  --tag-bg: #{rgba($bg, 0.6)};
+  --header-bg: #{rgba($bg, 0.8)};
+  --logo-filter: #{$logo-filter};
+}
+
 :root {
+  @include theme(dark, $color-black, $color-white, brightness(0) invert(1));
   --color-white: #{$color-white};
   --color-black: #{$color-black};
   --color-accent: #{$color-accent};
-  --line: #{$line};
-  --line-strong: #{$line-strong};
-  --line-hover: #{$line-hover};
   --frame-max: #{$frame-max};
   --gap: #{$gap};
   --pad: 16px;
@@ -45,4 +61,9 @@ $ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   @media (min-width: $bp-lg) {
     --rail-inner: #{$rail-inner};
   }
+}
+
+// El ThemeService posa data-theme a <html> amb el tema ja resolt.
+:root[data-theme='light'] {
+  @include theme(light, $color-white, $color-black, brightness(0));
 }

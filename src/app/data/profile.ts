@@ -104,12 +104,9 @@ export const PROFILE: Profile = {
 
 /** Empreses amb qui has treballat o col·laborat. */
 export const COMPANIES: Company[] = [
-  { name: 'Empresa de pràctiques' },
-  { name: 'Institut' },
-  { name: 'SoluTec' },
-  { name: 'Client u' },
-  { name: 'Client dos' },
-  { name: 'Client tres' },
+  { name: 'SoluTec Tàrrega', logo: 'logos/solutec-tarrega.svg' },
+  { name: 'USE-IT Lleida', logo: 'logos/use-it-lleida.png' },
+  { name: 'Cubecat', logo: 'logos/cubecat.png' },
 ];
 
 export const EXPERIENCE: CvEntry[] = [

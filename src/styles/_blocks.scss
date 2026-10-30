@@ -507,17 +507,9 @@
 // Cel·les separades per línies de la graella, com un tauler.
 .block-logos {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-right: -1px; // l'última columna comparteix línia amb el rail
   border-top: 1px solid var(--line);
-
-  @media (min-width: $bp-md) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  @media (min-width: $bp-lg) {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
 }
 
 .block-logos__item {
@@ -528,8 +520,13 @@
 .block-logos__link {
   display: grid;
   place-items: center;
-  height: 120px;
+  height: 140px;
   padding: 24px;
+
+  @media (max-width: ($bp-md - 1)) {
+    height: 96px;
+    padding: 16px;
+  }
   color: $text-muted;
   transition:
     color 0.3s ease,
@@ -538,21 +535,19 @@
   &[href]:hover {
     background: rgba($color-white, 0.03);
     color: $text;
-
-    .block-logos__image {
-      opacity: 1;
-    }
   }
 }
 
-// Logos en blanc per encaixar amb el negre.
+// Logos en blanc pur: brightness(0) els passa a negre i invert(1) a blanc al 100%.
 .block-logos__image {
-  max-width: 100%;
-  max-height: 40px;
+  max-width: min(100%, 200px);
+  max-height: 48px;
   object-fit: contain;
-  filter: grayscale(1) brightness(0) invert(1);
-  opacity: 0.6;
-  transition: opacity 0.3s ease;
+  filter: brightness(0) invert(1);
+
+  @media (max-width: ($bp-md - 1)) {
+    max-height: 32px;
+  }
 }
 
 .block-logos__name {

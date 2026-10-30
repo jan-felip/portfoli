@@ -13,7 +13,7 @@ import { Component, afterNextRender, computed, input, signal } from '@angular/co
         aria-hidden="true"
         [class.is-visible]="visible()"
         [style.transition-delay.ms]="delay() + $index * step()"
-      >{{ word }}</span>
+      >{{ word }}</span>{{ ' ' }}
     }
   `,
 })

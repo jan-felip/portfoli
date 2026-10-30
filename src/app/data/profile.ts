@@ -163,7 +163,7 @@ export const COLLABORATIONS: Project[] = [
     tags: ['Drupal', 'SCSS'],
     icon: 'globe2',
     url: 'https://ajuntament.barcelona.cat/hisenda/ca',
-    role: 'Maquetació de la portada i les fitxes',
+    role: 'Adaptació de tot el disseny al nou estil de les webs de l’ajuntament',
     involvement: 3,
   },
   {

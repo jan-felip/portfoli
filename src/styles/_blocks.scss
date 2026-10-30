@@ -156,24 +156,32 @@
   color: $text-soft;
 }
 
+// Quadre de text estil Aura: colors neutres propis (veure --prompt-* a _tokens).
 .block-prompt {
-  @include shell($radius-lg);
   display: grid;
   gap: 24px;
-  padding: 14px 10px 10px;
+  min-height: 120px;
+  padding: 12px 9px 9px;
+  border: 1px solid var(--prompt-border);
+  border-radius: $radius-lg;
+  background: var(--prompt-bg);
+  box-shadow: var(--prompt-shadow);
   text-align: left;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .block-prompt__text {
   min-height: 3em;
-  padding-inline: 4px;
-  font-size: 15px;
-  color: $text-soft;
+  padding-inline: 3px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--prompt-text);
 }
 
 .block-prompt__prefix {
   margin-right: 0.3em;
-  color: $text-muted;
 }
 
 .block-prompt__toolbar {
@@ -183,8 +191,15 @@
   gap: 8px;
 }
 
+@mixin prompt-chip {
+  border: 1px solid var(--chip-border);
+  border-radius: 8px;
+  background: var(--chip-bg);
+  box-shadow: var(--chip-shadow);
+}
+
 .block-prompt__chip {
-  @include shell(8px);
+  @include prompt-chip;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -197,20 +212,20 @@
 
 .block-prompt__icon,
 .block-prompt__send {
-  @include shell(8px);
+  @include prompt-chip;
   display: grid;
   place-items: center;
   width: 30px;
   height: 30px;
   font-size: 14px;
-  color: $text-soft;
+  color: $text;
   transition:
-    border-color 0.2s ease,
-    color 0.2s ease;
+    background-color 0.2s ease,
+    border-color 0.2s ease;
 
   &:hover {
-    border-color: var(--line-hover);
-    color: $text;
+    border-color: var(--chip-border-hover);
+    background: var(--chip-bg-hover);
   }
 }
 
@@ -225,13 +240,39 @@
   height: 1.1em;
   margin-left: 2px;
   vertical-align: text-bottom;
-  background: $color-accent;
+  background: currentColor;
   animation: caret-blink 1s steps(1) infinite;
 }
 
 @keyframes caret-blink {
   50% {
     opacity: 0;
+  }
+}
+
+// Cada lletra entra desenfocada, com a Aura; la frase surt sencera fent fos.
+.typewriter__text {
+  transition:
+    opacity 0.4s ease,
+    filter 0.4s ease;
+
+  &.is-leaving {
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
+
+.typewriter__char {
+  display: inline-block;
+  white-space: pre;
+  animation: char-in 0.35s $ease-out both;
+}
+
+@keyframes char-in {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(3px);
   }
 }
 

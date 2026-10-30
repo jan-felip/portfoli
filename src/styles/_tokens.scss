@@ -44,8 +44,40 @@ $ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --logo-filter: #{$logo-filter};
 }
 
+// Colors del quadre de text de la portada, copiats d'aura.build (escala neutral).
+@mixin prompt-dark {
+  --prompt-cell: #171717; // neutral-900
+  --prompt-bg: rgba(0, 0, 0, 0.2);
+  --prompt-border: #262626; // neutral-800
+  --prompt-shadow: none;
+  --prompt-text: #737373; // neutral-500
+  --chip-bg: #171717;
+  --chip-bg-hover: #262626;
+  --chip-border: hsla(0, 0%, 20%, 0.5);
+  --chip-border-hover: hsla(0, 0%, 20%, 0.7);
+  --chip-shadow: 0 2px 3px -1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(25, 28, 33, 0.02),
+    0 0 0 1px rgba(25, 28, 33, 0.08);
+}
+
+@mixin prompt-light {
+  --prompt-cell: #fafafa; // neutral-50
+  --prompt-bg: #fff;
+  --prompt-border: #fff;
+  --prompt-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 1px 1px -0.5px rgba(0, 0, 0, 0.06),
+    0 3px 3px -1.5px rgba(0, 0, 0, 0.06), 0 6px 6px -3px rgba(0, 0, 0, 0.06),
+    0 12px 12px -6px rgba(0, 0, 0, 0.06), 0 24px 24px -12px rgba(0, 0, 0, 0.06);
+  --prompt-text: #a3a3a3; // neutral-400
+  --chip-bg: #fff;
+  --chip-bg-hover: #f5f5f5;
+  --chip-border: transparent;
+  --chip-border-hover: rgba(0, 0, 0, 0.1);
+  --chip-shadow: 0 2px 3px -1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(25, 28, 33, 0.02),
+    0 0 0 1px rgba(25, 28, 33, 0.08);
+}
+
 :root {
   @include theme(dark, $color-black, $color-white, brightness(0) invert(1));
+  @include prompt-dark;
   --color-white: #{$color-white};
   --color-black: #{$color-black};
   --color-accent: #{$color-accent};
@@ -66,4 +98,5 @@ $ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 // El ThemeService posa data-theme a <html> amb el tema ja resolt.
 :root[data-theme='light'] {
   @include theme(light, $color-white, $color-black, brightness(0));
+  @include prompt-light;
 }

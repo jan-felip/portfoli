@@ -1,0 +1,76 @@
+@use 'tokens' as *;
+
+// Entrada estil Aura: desenfocat + puja + apareix.
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+
+// Paraules del títol (les activa RevealText).
+.reveal-text__word {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(16px);
+  transition:
+    opacity 0.7s $ease-out,
+    filter 0.7s $ease-out,
+    transform 0.7s $ease-out;
+
+  &:not(:last-child) {
+    margin-right: 0.28em;
+  }
+
+  &.is-visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+
+// Elements de la portada que entren sols.
+.reveal-item {
+  animation: reveal-in 0.7s $ease-out both;
+}
+
+// Elements que entren en fer scroll (directiva appInView).
+.in-view {
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(16px);
+  transition:
+    opacity 0.7s $ease-out,
+    filter 0.7s $ease-out,
+    transform 0.7s $ease-out,
+    border-color 0.2s ease;
+
+  &.is-inview {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+
+// Si l'usuari ho demana, el moviment es suavitza però no s'elimina.
+@media (prefers-reduced-motion: reduce) {
+  .reveal-text__word,
+  .in-view {
+    transform: translateY(4px);
+  }
+
+  @keyframes reveal-in {
+    from {
+      opacity: 0;
+      filter: blur(2px);
+    }
+  }
+}

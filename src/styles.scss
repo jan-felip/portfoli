@@ -1,1 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+// Tema global (estil Drupal: regions > blocks > cards).
+@use 'styles/tokens';
+@use 'styles/base';
+@use 'styles/regions';
+@use 'styles/blocks';
+@use 'styles/motion';

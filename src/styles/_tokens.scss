@@ -1,0 +1,48 @@
+// Paleta del portfoli: blanc, negre i un sol accent.
+$color-white: #fff;
+$color-black: #000;
+$color-accent: #618990;
+
+// Línies grises de la graella (blanc translúcid sobre negre).
+$line: rgba($color-white, 0.08);
+$line-strong: rgba($color-white, 0.14);
+$line-hover: rgba($color-white, 0.24);
+
+// Text.
+$text: $color-white;
+$text-muted: rgba($color-white, 0.62);
+$text-soft: rgba($color-white, 0.78);
+
+// Mètriques de la graella.
+$frame-max: 1376px; // amplada entre els rails exteriors
+$rail-inner: 184px; // rail exterior -> rail interior (escriptori)
+$hero-column: 672px; // columna central de la portada
+$gap: 8px; // separació contenidor <-> línia
+$radius: 12px;
+$radius-lg: 16px;
+
+$bp-md: 768px;
+$bp-lg: 1100px;
+
+$ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+:root {
+  --color-white: #{$color-white};
+  --color-black: #{$color-black};
+  --color-accent: #{$color-accent};
+  --line: #{$line};
+  --line-strong: #{$line-strong};
+  --line-hover: #{$line-hover};
+  --frame-max: #{$frame-max};
+  --gap: #{$gap};
+  --pad: 16px;
+  --rail-inner: 0px;
+
+  @media (min-width: $bp-md) {
+    --pad: 24px;
+  }
+
+  @media (min-width: $bp-lg) {
+    --rail-inner: #{$rail-inner};
+  }
+}

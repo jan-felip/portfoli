@@ -1,0 +1,678 @@
+@use 'tokens' as *;
+
+// Contenidor negre amb vora grisa.
+@mixin shell($radius: $radius) {
+  border: 1px solid var(--line-strong);
+  border-radius: $radius;
+  background: $color-black;
+}
+
+@mixin pill-button {
+  @include shell(999px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding-inline: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: $text-soft;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    border-color: var(--line-hover);
+    color: $text;
+  }
+}
+
+// Capçalera ----------------------------------------------------------
+.block-brand {
+  @include shell(10px);
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: var(--line-hover);
+  }
+}
+
+.block-nav {
+  display: none;
+  grid-column: 2;
+  gap: 4px;
+
+  @media (min-width: $bp-md) {
+    display: flex;
+  }
+}
+
+.block-nav__item {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: $text-muted;
+  transition: color 0.2s ease;
+
+  &:hover,
+  &.is-active {
+    color: $text;
+  }
+
+  &.is-active {
+    background: rgba($color-white, 0.06);
+  }
+}
+
+.block-actions {
+  @include pill-button;
+  grid-column: 3;
+  justify-self: end;
+}
+
+// Portada -----------------------------------------------------------
+.block-badge {
+  @include pill-button;
+  height: 30px;
+  font-size: 12px;
+  cursor: default;
+}
+
+.block-badge__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: $color-accent;
+  box-shadow: 0 0 0 3px rgba($color-accent, 0.25);
+  animation: badge-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  50% {
+    box-shadow: 0 0 0 6px rgba($color-accent, 0.08);
+  }
+}
+
+.block-title {
+  font-size: clamp(2.75rem, 7vw, 4.25rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+}
+
+.block-tagline {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  font-weight: 300;
+  color: $text-soft;
+}
+
+.block-prompt {
+  @include shell($radius-lg);
+  display: grid;
+  gap: 24px;
+  padding: 14px 10px 10px;
+  text-align: left;
+}
+
+.block-prompt__text {
+  min-height: 3em;
+  padding-inline: 4px;
+  font-size: 15px;
+  color: $text-soft;
+}
+
+.block-prompt__prefix {
+  margin-right: 0.3em;
+  color: $text-muted;
+}
+
+.block-prompt__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.block-prompt__chip {
+  @include shell(8px);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding-inline: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: $text-soft;
+}
+
+.block-prompt__icon,
+.block-prompt__send {
+  @include shell(8px);
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  font-size: 14px;
+  color: $text-soft;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    border-color: var(--line-hover);
+    color: $text;
+  }
+}
+
+.block-prompt__send {
+  margin-left: auto;
+  border-radius: 999px;
+}
+
+.typewriter__caret {
+  display: inline-block;
+  width: 1px;
+  height: 1.1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: $color-accent;
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+// Sobre mi -----------------------------------------------------------
+.block-intro {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+  padding-block: 24px;
+  padding-inline: var(--pad);
+
+  @media (min-width: $bp-lg) {
+    padding-inline: var(--gap);
+  }
+}
+
+.block-intro__eyebrow,
+.block-stats__label,
+.block-contact__eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $text-muted;
+}
+
+.block-intro__title {
+  max-width: 18ch;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.block-intro__text {
+  max-width: 60ch;
+  font-size: 17px;
+  color: $text-soft;
+}
+
+.block-intro__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.block-intro__button {
+  @include pill-button;
+  border-radius: 8px;
+
+  &--primary {
+    border-color: $color-accent;
+    background: $color-accent;
+    color: $color-black;
+
+    &:hover {
+      border-color: $color-white;
+      color: $color-black;
+    }
+  }
+}
+
+.block-stats {
+  @include shell($radius-lg);
+  display: grid;
+  gap: 8px;
+  padding: 24px;
+}
+
+.block-stats__label {
+  margin-bottom: 8px;
+}
+
+.block-stats__row {
+  @include shell($radius);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  padding-inline: 14px;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: var(--line-hover);
+  }
+}
+
+.block-stats__name {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: $text-soft;
+
+  .bi {
+    color: $color-accent;
+  }
+}
+
+.block-stats__value {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+// Panell de projectes -------------------------------------------------
+.block-panel {
+  @include shell($radius-lg);
+  padding: var(--pad);
+}
+
+.block-panel__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin-bottom: var(--pad);
+}
+
+.block-panel__title {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.block-panel__count {
+  margin-left: auto;
+  font-size: 13px;
+  color: $text-muted;
+}
+
+.block-panel__more {
+  @include pill-button;
+  margin-left: auto;
+  height: 30px;
+  font-size: 12px;
+
+  .bi {
+    transition: transform 0.3s $ease-out;
+  }
+
+  &:hover .bi {
+    transform: translateX(3px);
+  }
+}
+
+.block-panel__grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(0, 1fr);
+
+  @media (min-width: $bp-md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: $bp-lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+// Targeta de projecte --------------------------------------------------
+.card-project {
+  @include shell($radius);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  &:hover {
+    border-color: var(--line-hover);
+
+    .card-project__icon {
+      color: $color-accent;
+      transform: scale(1.08);
+    }
+  }
+}
+
+.card-project__media {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  border-bottom: 1px solid var(--line-strong);
+  // Mini graella de fons, mateix llenguatge que la pàgina.
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: center;
+}
+
+.card-project__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-project__icon {
+  font-size: 44px;
+  color: rgba($color-white, 0.5);
+  transition:
+    color 0.3s ease,
+    transform 0.4s $ease-out;
+}
+
+.card-project__tags {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.card-project__tag {
+  padding: 3px 9px;
+  border: 1px solid rgba($color-white, 0.15);
+  border-radius: 8px;
+  background: rgba($color-black, 0.6);
+  backdrop-filter: blur(20px);
+  font-size: 11px;
+  font-weight: 500;
+  color: $text-soft;
+}
+
+.card-project__body {
+  display: grid;
+  flex: 1;
+  grid-template-rows: auto 1fr auto;
+  gap: 6px;
+  padding: 14px 14px 12px;
+}
+
+.card-project__title {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.card-project__text {
+  font-size: 14px;
+  color: $text-muted;
+}
+
+.card-project__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 12px;
+  color: $text-muted;
+}
+
+.card-project__links {
+  display: flex;
+  gap: 12px;
+  font-size: 15px;
+
+  a:hover {
+    color: $text;
+  }
+}
+
+// Peu ------------------------------------------------------------------
+.block-contact {
+  display: grid;
+  gap: 4px;
+}
+
+.block-contact__email {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  border-bottom: 1px solid var(--line-strong);
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: $color-accent;
+  }
+}
+
+.block-social {
+  display: flex;
+  gap: 8px;
+}
+
+.block-social__link {
+  @include shell(999px);
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  color: $text-soft;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    border-color: var(--line-hover);
+    color: $text;
+  }
+}
+
+.block-copy {
+  width: 100%;
+  font-size: 12px;
+  color: $text-muted;
+}
+
+// Logos d'empreses ------------------------------------------------------
+// Cel·les separades per línies de la graella, com un tauler.
+.block-logos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-right: -1px; // l'última columna comparteix línia amb el rail
+  border-top: 1px solid var(--line);
+
+  @media (min-width: $bp-md) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @media (min-width: $bp-lg) {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.block-logos__item {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.block-logos__link {
+  display: grid;
+  place-items: center;
+  height: 120px;
+  padding: 24px;
+  color: $text-muted;
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease;
+
+  &[href]:hover {
+    background: rgba($color-white, 0.03);
+    color: $text;
+
+    .block-logos__image {
+      opacity: 1;
+    }
+  }
+}
+
+// Logos en blanc per encaixar amb el negre.
+.block-logos__image {
+  max-width: 100%;
+  max-height: 40px;
+  object-fit: contain;
+  filter: grayscale(1) brightness(0) invert(1);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.block-logos__name {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+// Currículum --------------------------------------------------------------
+.block-cv {
+  @include shell($radius-lg);
+  padding: var(--pad);
+}
+
+.block-cv__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+
+  .bi {
+    font-size: 18px;
+    color: $color-accent;
+  }
+}
+
+.block-cv__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.block-cv__item {
+  display: grid;
+  gap: 4px 24px;
+  padding-block: 18px;
+  border-top: 1px solid var(--line);
+
+  &:first-child {
+    border-top: 0;
+  }
+
+  @media (min-width: $bp-md) {
+    grid-template-columns: 170px minmax(0, 1fr);
+  }
+}
+
+.block-cv__period {
+  display: inline-flex;
+  align-items: center;
+  align-self: start;
+  gap: 8px;
+  padding-top: 2px;
+  font-size: 13px;
+  color: $text-muted;
+  font-variant-numeric: tabular-nums;
+
+  .is-current &::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: $color-accent;
+    box-shadow: 0 0 0 3px rgba($color-accent, 0.25);
+  }
+}
+
+.block-cv__content {
+  display: grid;
+  gap: 2px;
+}
+
+.block-cv__role {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.block-cv__place {
+  font-size: 14px;
+  color: $text-soft;
+}
+
+.block-cv__text {
+  margin-top: 6px;
+  max-width: 70ch;
+  font-size: 14px;
+  color: $text-muted;
+}
+
+.block-cv__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+  margin-top: 6px;
+  font-size: 13px;
+  color: $text-soft;
+  border-bottom: 1px solid var(--line-strong);
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: $color-accent;
+  }
+}
+
+.block-cv__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.block-cv__chip {
+  @include shell(8px);
+  padding: 6px 12px;
+  font-size: 13px;
+  color: $text-soft;
+}

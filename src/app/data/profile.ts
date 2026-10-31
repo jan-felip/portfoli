@@ -117,8 +117,8 @@ export interface ToolGroup {
 
 /** Eines amb què treballes, agrupades. Canvia, treu o afegeix el que calgui. */
 export const TOOLS: ToolGroup[] = [
-  { title: 'Frontend', icon: 'window', tools: ['Angular', 'TypeScript', 'JavaScript', 'HTML', 'SCSS'] },
-  { title: 'Backend', icon: 'hdd-stack', tools: ['PHP', 'Laravel', 'Drupal', 'Python', 'Node.js', 'MySQL'] },
+  { title: 'Frontend', icon: 'window', tools: ['Angular', 'TypeScript', 'JavaScript', 'HTML', 'CSS', 'SCSS'] },
+  { title: 'Backend', icon: 'hdd-stack', tools: ['PHP', 'Laravel', 'Drupal', 'Java', 'Python', 'Node.js', 'MySQL'] },
   { title: 'Eines', icon: 'tools', tools: ['Git', 'VS Code', 'Figma', 'npm', 'Docker', 'OnlyOffice'] },
 ];
 

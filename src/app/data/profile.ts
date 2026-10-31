@@ -62,6 +62,11 @@ export interface CvEntry {
   /** Marca l'entrada com a actual (punt de color). */
   current?: boolean;
   url?: string;
+  /** Logo del lloc dins de /public. */
+  logo?: string;
+  /** Què has fet en aquest lloc, una línia per punt. */
+  tasks?: string[];
+  tags?: string[];
 }
 
 export interface Profile {
@@ -153,33 +158,38 @@ export const COMPANIES: Company[] = [
   { name: 'Cubecat', logo: 'logos/cubecat.png', url: 'https://www.cubecat.cat' },
 ];
 
+// On has treballat. "tasks" és la llista de coses fetes a cada lloc, com a LinkedIn.
 export const EXPERIENCE: CvEntry[] = [
   {
     period: '2026 - actualitat',
     title: 'Desenvolupador web (pràctiques)',
-    place: 'Empresa de pràctiques',
-    description: 'Explica aquí què fas a les pràctiques: tecnologies, projectes i responsabilitats.',
+    place: 'USE-IT · Lleida',
+    logo: 'logos/use-it-lleida.png',
+    url: 'https://useit.es/ca',
     current: true,
-  },
-  {
-    period: '2025',
-    title: 'Projecte freelance',
-    place: 'Client',
-    description: 'Una línia sobre la feina feta i el resultat.',
+    description: 'Treball en equip rotant entre projectes web de clients.',
+    tasks: [
+      'Maquetació i adaptació de dissenys en webs Drupal amb SCSS',
+      'Hovers, animacions i ajustos de disseny',
+      'Gràfics SVG generats en PHP a partir d’APIs i CSVs',
+      'Introducció i revisió de continguts',
+    ],
+    tags: ['Drupal', 'PHP', 'SCSS'],
   },
 ];
 
+// On has estudiat.
 export const EDUCATION: CvEntry[] = [
   {
     period: '2024 - actualitat',
     title: 'CFGS Desenvolupament d’Aplicacions Web',
-    place: 'Nom de l’institut · Ciutat',
+    place: 'Ilerna · Lleida',
+    url: 'https://www.ilerna.es/',
     current: true,
-  },
-  {
-    period: '2022 - 2024',
-    title: 'Estudis anteriors',
-    place: 'Nom del centre · Ciutat',
+    tasks: [
+      'Programació frontend i backend: Angular, TypeScript, PHP, Laravel i Java',
+      'Bases de dades, desplegament i control de versions amb Git',
+    ],
   },
 ];
 

@@ -798,6 +798,52 @@
   gap: 2px;
 }
 
+.block-cv__head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+// Logo del lloc dins una caixa, pintat amb el color del text com els de la portada.
+.block-cv__logo {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  padding: 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  object-fit: contain;
+  filter: var(--logo-filter);
+}
+
+// Què he fet: llista amb un punt de l'accent.
+.block-cv__tasks {
+  display: grid;
+  gap: 6px;
+  max-width: 70ch;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 14px;
+    color: $text-soft;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0.6em;
+      left: 2px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: $color-accent;
+    }
+  }
+}
+
 .block-cv__role {
   font-size: 16px;
   font-weight: 600;

@@ -1,19 +1,13 @@
 import { Component } from '@angular/core';
-import { CERTIFICATIONS, CvEntry, EDUCATION, EXPERIENCE, LANGUAGES, PROFILE } from '../data/profile';
+import { CERTIFICATIONS, EDUCATION, EXPERIENCE, LANGUAGES, PROFILE } from '../data/profile';
 import { InView } from '../shared/in-view';
+import { CvGroup, CvTimeline } from '../sections/cv-timeline';
 import { PageTitle } from '../sections/page-title';
 import { Spacer } from '../sections/spacer';
 
-interface CvGroup {
-  id: string;
-  title: string;
-  icon: string;
-  entries: CvEntry[];
-}
-
 @Component({
   selector: 'app-curriculum-page',
-  imports: [PageTitle, Spacer, InView],
+  imports: [PageTitle, Spacer, InView, CvTimeline],
   template: `
     <app-page-title
       eyebrow="Currículum"
@@ -30,32 +24,7 @@ interface CvGroup {
 
     <div class="region region-cv">
       <div class="region-cv__inner">
-        @for (group of groups; track group.id) {
-          <section class="block block-cv" [attr.aria-labelledby]="'cv-' + group.id" appInView>
-            <h2 class="block-cv__title" [id]="'cv-' + group.id">
-              <i class="bi" [class]="'bi-' + group.icon" aria-hidden="true"></i>{{ group.title }}
-            </h2>
-            <ol class="block-cv__list">
-              @for (entry of group.entries; track $index) {
-                <li class="block-cv__item" [class.is-current]="entry.current">
-                  <span class="block-cv__period">{{ entry.period }}</span>
-                  <div class="block-cv__content">
-                    <h3 class="block-cv__role">{{ entry.title }}</h3>
-                    <p class="block-cv__place">{{ entry.place }}</p>
-                    @if (entry.description) {
-                      <p class="block-cv__text">{{ entry.description }}</p>
-                    }
-                    @if (entry.url) {
-                      <a class="block-cv__link" [href]="entry.url" target="_blank" rel="noopener">
-                        Veure certificat <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-                      </a>
-                    }
-                  </div>
-                </li>
-              }
-            </ol>
-          </section>
-        }
+        <app-cv-timeline [groups]="groups" />
 
         <section class="block block-cv" aria-labelledby="cv-idiomes" appInView>
           <h2 class="block-cv__title" id="cv-idiomes">
@@ -77,6 +46,12 @@ export class CurriculumPage {
   protected readonly groups: CvGroup[] = [
     { id: 'experiencia', title: 'Experiència', icon: 'briefcase', entries: EXPERIENCE },
     { id: 'formacio', title: 'Formació', icon: 'mortarboard', entries: EDUCATION },
-    { id: 'certificacions', title: 'Certificacions', icon: 'patch-check', entries: CERTIFICATIONS },
+    {
+      id: 'certificacions',
+      title: 'Certificacions',
+      icon: 'patch-check',
+      entries: CERTIFICATIONS,
+      linkLabel: 'Veure certificat',
+    },
   ];
 }

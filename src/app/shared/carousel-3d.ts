@@ -313,7 +313,11 @@ export class Carousel3d {
     let nearest = 0;
     let best = Infinity;
     // Separació entre peces: prou perquè la del costat només quedi mig amagada.
-    const spread = Math.max(this.cardWidth * 0.5, Math.min(this.cardWidth * 0.75, this.stageWidth * 0.2));
+    // A mòbil (escenari estret) les laterals només treuen el cap pels costats.
+    const narrow = this.stageWidth < 600;
+    const spread = narrow
+      ? this.cardWidth * 0.4
+      : Math.max(this.cardWidth * 0.5, Math.min(this.cardWidth * 0.75, this.stageWidth * 0.2));
 
     pieces.forEach((piece, i) => {
       const d = this.offset(i, this.pos);

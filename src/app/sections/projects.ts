@@ -5,7 +5,7 @@ import { Carousel3d } from '../shared/carousel-3d';
 import { InView } from '../shared/in-view';
 import { ProjectCard } from './project-card';
 
-/** Ordinador amb ratolí i pantalla ampla: només aquí es mostra el carrusel 3D. */
+/** Pantalla ampla: el panell del carrusel perd el contorn arrodonit. */
 const DESKTOP_QUERY = '(min-width: 1100px)';
 
 /**
@@ -31,7 +31,7 @@ const DESKTOP_QUERY = '(min-width: 1100px)';
           }
         </div>
 
-        @if (carousel() && desktop()) {
+        @if (carousel()) {
           <app-carousel-3d [items]="items()" [label]="heading()" />
         } @else {
           <div class="block-panel__grid">

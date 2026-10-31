@@ -821,14 +821,19 @@
 // Carrusel 3D (coverflow) -------------------------------------------------
 // Les posicions les calcula Carousel3d a cada fotograma; aquí només l'escenari.
 .carousel-3d {
-  --carousel-card: clamp(16rem, 23vw, 21rem);
+  --carousel-card: clamp(19rem, 27vw, 25rem);
   display: block;
+
+  // A mòbil la targeta ocupa gairebé tota l'amplada i les laterals treuen el cap.
+  @media (max-width: ($bp-md - 1)) {
+    --carousel-card: min(72vw, 20rem);
+  }
 }
 
 .carousel-3d__stage {
   position: relative;
   width: 100%;
-  min-height: 420px;
+  min-height: 360px;
   overflow: clip;
   touch-action: pan-y;
   border-radius: $radius;

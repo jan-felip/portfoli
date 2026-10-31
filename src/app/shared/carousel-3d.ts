@@ -97,6 +97,7 @@ export class Carousel3d {
   private drag: { id: number; x0: number; pos0: number; active: boolean; samples: { t: number; x: number }[] } | null = null;
   private justDragged = false;
   private buttonTimer?: ReturnType<typeof setTimeout>;
+  private wheelTimer?: ReturnType<typeof setTimeout>;
 
   constructor() {
     const destroyRef = inject(DestroyRef);
@@ -119,6 +120,12 @@ export class Carousel3d {
       }, { rootMargin: '10% 0px' });
       io.observe(stage);
 
+      // Lliscar en lateral amb dos dits al ratolí tàctil (trackpad) o la roda horitzontal.
+      // passive: false perquè cal aturar l'scroll lateral del navegador.
+      const onWheel = (e: WheelEvent) => this.onWheel(e);
+      stage.addEventListener('wheel', onWheel, { passive: false });
+      destroyRef.onDestroy(() => stage.removeEventListener('wheel', onWheel));
+
       const onVisibility = () => this.kick();
       document.addEventListener('visibilitychange', onVisibility);
 
@@ -128,6 +135,7 @@ export class Carousel3d {
         document.removeEventListener('visibilitychange', onVisibility);
         cancelAnimationFrame(this.raf);
         clearTimeout(this.buttonTimer);
+        clearTimeout(this.wheelTimer);
       });
     });
   }
@@ -170,6 +178,28 @@ export class Carousel3d {
   protected onFocusOut(e: FocusEvent): void {
     const next = e.relatedTarget as Node | null;
     if (!next || !this.stage().nativeElement.contains(next)) this.hold('focus', false);
+  }
+
+  // ---- Lliscar amb els dits (trackpad) -----------------------------------
+
+  private onWheel(e: WheelEvent): void {
+    // Només el gest lateral; el vertical continua fent scroll a la pàgina.
+    const dx = e.shiftKey && !e.deltaX ? e.deltaY : e.deltaX;
+    if (Math.abs(dx) <= Math.abs(e.deltaY) && !e.shiftKey) return;
+    e.preventDefault();
+
+    const px = e.deltaMode === 1 ? dx * 16 : dx;
+    this.anim = null;
+    this.vel = 0;
+    this.pos += px / this.dragScale();
+    this.hold('wheel', true);
+
+    // Quan el gest s'acaba, la targeta més propera s'alinea al centre.
+    clearTimeout(this.wheelTimer);
+    this.wheelTimer = setTimeout(() => {
+      this.goTo(Math.round(this.pos), 0.45);
+      this.hold('wheel', false);
+    }, 140);
   }
 
   // ---- Arrossegar -------------------------------------------------------
@@ -285,7 +315,11 @@ export class Carousel3d {
     pieces.forEach((piece, i) => {
       const d = this.offset(i, this.pos);
       const abs = Math.abs(d);
-      const x = Math.sign(d) * Math.min(abs, 2.5) * spread;
+      // Quan dues targetes es creuen al centre, s'aparten cap als costats
+      // (màxim a mig camí, quan canvia quina va a sobre) i tornen a alinear-se.
+      // Així el canvi de capa passa sense que es toquin i no es veu cap salt.
+      const dodge = abs < 1 ? Math.sin(Math.PI * abs) * spread * 0.5 : 0;
+      const x = Math.sign(d) * (Math.min(abs, 2.5) * spread + dodge);
       const z = -Math.min(abs, 3) * 150;
       const rot = Math.max(-44, Math.min(44, -d * 26));
       // Les del costat es queden opaques (no es veu la de darrere a través)

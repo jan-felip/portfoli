@@ -6,7 +6,7 @@ import { InView } from '../shared/in-view';
 import { ProjectCard } from './project-card';
 
 /** Ordinador amb ratolí i pantalla ampla: només aquí es mostra el carrusel 3D. */
-const DESKTOP_QUERY = '(min-width: 1100px) and (hover: hover) and (pointer: fine)';
+const DESKTOP_QUERY = '(min-width: 1100px)';
 
 /**
  * Panell amb projectes. Amb [carousel] fa servir el carrusel 3D a l'ordinador

@@ -162,6 +162,7 @@ export const COLLABORATIONS: Project[] = [
     year: '2026',
     tags: ['Drupal', 'SCSS'],
     icon: 'globe2',
+    image: 'projects/hisenda.jpg',
     url: 'https://ajuntament.barcelona.cat/hisenda/ca',
     role: 'Adaptació de tot el disseny al nou estil de les webs de l’Ajuntament de Barcelona',
     involvement: 3,

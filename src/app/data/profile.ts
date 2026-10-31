@@ -66,6 +66,10 @@ export interface CvEntry {
 
 export interface Profile {
   name: string;
+  /** Nom complet de la pàgina Sobre mi: la segona línia va sota la primera. */
+  fullName: [string, string];
+  /** Foto quadrada dins de /public (p. ex. "photo.jpg"). Si no n'hi ha, es mostra un marc buit. */
+  photo?: string;
   initials: string;
   tagline: string;
   /** Frases que escriu la màquina d'escriure de la portada. */
@@ -88,6 +92,8 @@ export interface Profile {
 
 export const PROFILE: Profile = {
   name: 'Jan Felip',
+  fullName: ['Jan Felip', 'Segon cognom'],
+  photo: undefined,
   initials: 'JF',
   tagline: 'Desenvolupo webs i eines a mida, del disseny al servidor.',
   // Prefix fix davant de cada frase (deixa'l buit si les frases ja són completes).
@@ -110,7 +116,7 @@ export const PROFILE: Profile = {
     { label: 'Discord', href: 'https://discord.com/', icon: 'discord' },
   ],
   about: {
-    eyebrow: 'Sobre mi',
+    eyebrow: 'Qui sóc',
     title: 'Codi net, disseny cuidat i ganes d’aprendre.',
     paragraphs: [
       'Escriu aquí qui ets, què estudies i què t’agrada fer. Dues o tres frases curtes funcionen millor que un paràgraf llarg.',

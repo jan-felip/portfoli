@@ -10,7 +10,7 @@ import { InView } from '../shared/in-view';
     <div class="region-about__inner">
       <div class="block block-intro" appInView>
         <p class="block-intro__eyebrow">{{ about.eyebrow }}</p>
-        <h1 class="block-intro__title">{{ about.title }}</h1>
+        <h2 class="block-intro__title">{{ about.title }}</h2>
         @for (paragraph of about.paragraphs; track $index) {
           <p class="block-intro__text">{{ paragraph }}</p>
         }

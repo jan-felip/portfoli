@@ -306,3 +306,24 @@
 .region-tools .block-tools {
   margin-bottom: -1px;
 }
+
+// Capçalera de Sobre mi -------------------------------------------------
+.region-about-hero__inner {
+  @include rails-outer;
+  @include rails-inner;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: 32px;
+  padding: 56px var(--pad) 40px;
+
+  @media (min-width: $bp-md) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+    padding-block: 96px 64px;
+  }
+
+  @media (min-width: $bp-lg) {
+    grid-template-columns: minmax(0, 1fr) 380px;
+    padding-inline: calc(var(--rail-inner) + var(--pad));
+  }
+}

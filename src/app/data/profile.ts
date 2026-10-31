@@ -107,7 +107,7 @@ export const PROFILE: Profile = {
   ],
 };
 
-/** Grup d'eines de la secci├│ "Amb qu├¿ treballo". */
+/** Grup d'eines de la secció "Amb què treballo". */
 export interface ToolGroup {
   title: string;
   /** Icona de Bootstrap Icons, sense el prefix "bi-". */
@@ -115,7 +115,7 @@ export interface ToolGroup {
   tools: string[];
 }
 
-/** Eines amb qu├¿ treballes, agrupades. Canvia, treu o afegeix el que calgui. */
+/** Eines amb què treballes, agrupades. Canvia, treu o afegeix el que calgui. */
 export const TOOLS: ToolGroup[] = [
   { title: 'Frontend', icon: 'window', tools: ['Angular', 'TypeScript', 'JavaScript', 'HTML', 'SCSS'] },
   { title: 'Backend', icon: 'hdd-stack', tools: ['PHP', 'Laravel', 'Drupal', 'Python', 'Node.js', 'MySQL'] },

@@ -209,7 +209,7 @@ export const COLLABORATIONS: Project[] = [
     icon: 'globe2',
     image: 'projects/peusa.jpg',
     url: 'https://www.peusa.org/',
-    role: 'Ajustaments del disseny i gràfics SVGs generats en PHP a partir de dades d’API i CSVs',
+    role: 'Ajustaments del disseny i gràfics SVGs generats en PHP a partir d’APIs i CSVs',
     involvement: 2,
   },
   {

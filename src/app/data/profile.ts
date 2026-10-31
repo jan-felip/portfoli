@@ -107,6 +107,21 @@ export const PROFILE: Profile = {
   ],
 };
 
+/** Grup d'eines de la secci├│ "Amb qu├¿ treballo". */
+export interface ToolGroup {
+  title: string;
+  /** Icona de Bootstrap Icons, sense el prefix "bi-". */
+  icon: string;
+  tools: string[];
+}
+
+/** Eines amb qu├¿ treballes, agrupades. Canvia, treu o afegeix el que calgui. */
+export const TOOLS: ToolGroup[] = [
+  { title: 'Frontend', icon: 'window', tools: ['Angular', 'TypeScript', 'JavaScript', 'HTML', 'SCSS'] },
+  { title: 'Backend', icon: 'hdd-stack', tools: ['PHP', 'Laravel', 'Drupal', 'Python', 'Node.js', 'MySQL'] },
+  { title: 'Eines', icon: 'tools', tools: ['Git', 'VS Code', 'Figma', 'npm', 'Docker', 'OnlyOffice'] },
+];
+
 /** Empreses amb qui has treballat o col·laborat. */
 export const COMPANIES: Company[] = [
   { name: 'SoluTec Tàrrega', logo: 'logos/solutec-tarrega.svg', url: 'https://www.solutec.cat' },

@@ -6,8 +6,13 @@ import { Project } from '../data/profile';
   host: { class: 'card card-project' },
   template: `
     @let p = project();
-    <div class="card-project__media">
-      @if (p.image) {
+    <div class="card-project__media" [class.card-project__media--brand]="p.brand">
+      @if (p.brand; as b) {
+        <div class="card-project__brand" [style.color]="b.color" [style.font-family]="b.font">
+          <i class="card-project__brand-icon bi" [class]="'bi-' + b.icon" aria-hidden="true"></i>
+          <span class="card-project__brand-name">{{ b.name }}</span>
+        </div>
+      } @else if (p.image) {
         <img class="card-project__image" [src]="p.image" [alt]="p.title" loading="lazy" />
       } @else {
         <i class="card-project__icon bi" [class]="'bi-' + p.icon" aria-hidden="true"></i>

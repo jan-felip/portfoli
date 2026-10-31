@@ -16,6 +16,16 @@ export interface Stat {
   icon: string;
 }
 
+/** Marca d'un projecte: el nom amb la seva tipografia i la icona a sobre. */
+export interface ProjectBrand {
+  name: string;
+  /** Icona de Bootstrap Icons, sense el prefix "bi-". */
+  icon: string;
+  color: string;
+  /** font-family CSS; la font s'ha de carregar a index.html. */
+  font: string;
+}
+
 export interface Project {
   title: string;
   description: string;
@@ -25,6 +35,8 @@ export interface Project {
   image?: string;
   /** Icona que es mostra quan no hi ha imatge. */
   icon: string;
+  /** Portada de marca (fons blanc, icona i nom) en lloc d'imatge o icona. */
+  brand?: ProjectBrand;
   url?: string;
   repo?: string;
   /** Es mostra a la portada. */
@@ -242,6 +254,8 @@ export const PROJECTS: Project[] = [
     year: '2026',
     tags: ['Python', 'JavaScript', 'Xarxes'],
     icon: 'router',
+    // Mateix nom, tipografia i verd que la capçalera del tauler de netscan.
+    brand: { name: 'netscan', icon: 'router-fill', color: '#58cc02', font: '"Nunito", system-ui, sans-serif' },
     featured: true,
   },
   {

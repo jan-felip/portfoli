@@ -470,6 +470,34 @@
   background-position: center;
 }
 
+// Portada de marca: fons blanc pla amb la icona centrada sobre el nom.
+.card-project__media--brand {
+  background: $color-white;
+}
+
+.card-project__brand {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  transition: transform 0.4s $ease-out;
+
+  .card-project:hover & {
+    transform: scale(1.04);
+  }
+}
+
+.card-project__brand-icon {
+  font-size: 56px;
+  line-height: 1;
+}
+
+.card-project__brand-name {
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
 .card-project__image {
   position: absolute;
   inset: 0;

@@ -18,7 +18,8 @@ const DESKTOP_QUERY = '(min-width: 1100px) and (hover: hover) and (pointer: fine
   host: { class: 'region region-content' },
   template: `
     <div class="region-content__inner">
-      <section class="block block-panel" [attr.aria-labelledby]="panelId() + '-title'">
+      <section class="block block-panel" [class.block-panel--bare]="carousel() && desktop()"
+               [attr.aria-labelledby]="panelId() + '-title'">
         <div class="block-panel__toolbar">
           <h2 class="block-panel__title" [id]="panelId() + '-title'">{{ heading() }}</h2>
           @if (moreLink(); as link) {

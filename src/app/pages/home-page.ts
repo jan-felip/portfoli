@@ -11,7 +11,7 @@ import { Spacer } from '../sections/spacer';
   template: `
     <app-hero />
     <app-spacer />
-    <app-projects [items]="featured" heading="Projectes destacats" panelId="destacats" moreLink="/projectes" />
+    <app-projects [items]="featured" heading="Projectes destacats" panelId="destacats" moreLink="/projectes" [carousel]="true" />
     <app-spacer />
     <app-companies />
   `,

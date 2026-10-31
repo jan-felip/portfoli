@@ -6,7 +6,6 @@ import {
   computed,
   inject,
   input,
-  signal,
   viewChild,
 } from '@angular/core';
 import { Project } from '../data/profile';
@@ -40,7 +39,6 @@ const MIN_SLOTS = 6;
       aria-roledescription="carrusel"
       [attr.aria-label]="label()"
       tabindex="0"
-      [style.perspective.px]="perspective()"
       (keydown)="onKey($event)"
       (pointerover)="onHover($event, true)"
       (pointerleave)="onHover($event, false)"
@@ -61,19 +59,6 @@ const MIN_SLOTS = 6;
         }
       </ul>
     </div>
-
-    <div class="carousel-3d__controls">
-      <button type="button" class="carousel-3d__button" aria-label="Anterior" (click)="step(-1)">
-        <i class="bi bi-chevron-left" aria-hidden="true"></i>
-      </button>
-      <button type="button" class="carousel-3d__button" [attr.aria-label]="paused() ? 'Reprèn' : 'Pausa'"
-              [attr.aria-pressed]="paused()" (click)="togglePause()">
-        <i class="bi" [class.bi-play-fill]="paused()" [class.bi-pause-fill]="!paused()" aria-hidden="true"></i>
-      </button>
-      <button type="button" class="carousel-3d__button" aria-label="Següent" (click)="step(1)">
-        <i class="bi bi-chevron-right" aria-hidden="true"></i>
-      </button>
-    </div>
   `,
 })
 export class Carousel3d {
@@ -83,7 +68,6 @@ export class Carousel3d {
   /** Velocitat del gir automàtic, en targetes per segon. */
   readonly autoSpeed = input(0.11);
 
-  protected readonly paused = signal(false);
   protected readonly slots = computed<Slot[]>(() => {
     const list = this.items();
     if (!list.length) return [];
@@ -156,11 +140,6 @@ export class Carousel3d {
     this.hold('button', true);
     clearTimeout(this.buttonTimer);
     this.buttonTimer = setTimeout(() => this.hold('button', false), 2600);
-  }
-
-  togglePause(): void {
-    this.paused.update((p) => !p);
-    this.hold('user', this.paused());
   }
 
   protected onKey(e: KeyboardEvent): void {
@@ -300,7 +279,8 @@ export class Carousel3d {
     if (!this.cardWidth || pieces.length !== this.count) return;
     let nearest = 0;
     let best = Infinity;
-    const spread = Math.max(this.cardWidth * 0.4, Math.min(this.cardWidth, this.stageWidth * 0.18));
+    // Separació entre peces: prou perquè la del costat només quedi mig amagada.
+    const spread = Math.max(this.cardWidth * 0.5, Math.min(this.cardWidth * 0.75, this.stageWidth * 0.2));
 
     pieces.forEach((piece, i) => {
       const d = this.offset(i, this.pos);
@@ -308,10 +288,17 @@ export class Carousel3d {
       const x = Math.sign(d) * Math.min(abs, 2.5) * spread;
       const z = -Math.min(abs, 3) * 150;
       const rot = Math.max(-44, Math.min(44, -d * 26));
-      const opacity = abs < 0.6 ? 1 : Math.max(0, 1 - (abs - 0.6) * 0.62);
+      // Les del costat es queden opaques (no es veu la de darrere a través)
+      // i s'enfosqueixen; només les del fons s'esvaeixen.
+      const opacity = abs < 1.6 ? 1 : Math.max(0, 1 - (abs - 1.6) * 1.1);
+      const dim = 1 - Math.min(abs, 2) * 0.22;
+      piece.style.filter = abs < 0.05 ? '' : `brightness(${dim.toFixed(3)})`;
 
+      // Cada peça porta la seva perspectiva i l'escena queda plana: així mana el
+      // z-index i les targetes no es travessen entre elles en girar.
       piece.style.transform =
-        `translate(-50%, -50%) translateX(${x.toFixed(1)}px) translateZ(${z.toFixed(1)}px) rotateY(${rot.toFixed(1)}deg)`;
+        `translate(-50%, -50%) perspective(${this.perspective()}px) translateX(${x.toFixed(1)}px) ` +
+        `translateZ(${z.toFixed(1)}px) rotateY(${rot.toFixed(1)}deg)`;
       piece.style.opacity = opacity.toFixed(3);
       piece.style.zIndex = String(Math.round(120 - abs * 20));
       piece.style.pointerEvents = abs < 0.55 || opacity > 0.3 ? '' : 'none';

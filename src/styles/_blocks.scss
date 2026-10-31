@@ -830,7 +830,6 @@
   width: 100%;
   min-height: 420px;
   overflow: clip;
-  transform-style: preserve-3d;
   touch-action: pan-y;
   border-radius: $radius;
   // Halo suau de l'accent darrere la targeta del davant.
@@ -844,7 +843,6 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  transform-style: preserve-3d;
   cursor: grab;
 
   &[data-dragging] {
@@ -859,7 +857,7 @@
   left: 50%;
   width: var(--carousel-card);
   backface-visibility: hidden;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
 
   .card-project {
     box-shadow: 0 26px 50px -26px rgba($color-black, 0.7);
@@ -881,28 +879,9 @@
   }
 }
 
-.carousel-3d__controls {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 16px;
-}
-
-.carousel-3d__button {
-  @include shell(12px);
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  font-size: 18px;
-  color: $text-soft;
-  cursor: pointer;
-  transition:
-    border-color 0.2s ease,
-    color 0.2s ease;
-
-  &:hover {
-    border-color: color-mix(in srgb, #{$color-accent} 40%, transparent);
-    color: $text;
-  }
+// Amb el carrusel, el panell perd el contorn arrodonit: ja queda prou separat.
+.block-panel--bare {
+  border-color: transparent;
+  border-radius: 0;
+  background: transparent;
 }

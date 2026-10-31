@@ -21,11 +21,11 @@ interface Slot {
 const MIN_SLOTS = 6;
 
 /**
- * Quant s'aparten les targetes quan es creuen al centre, com a fracció de l'amplada
- * de la targeta. 0.145 equival a la versió que funcionava bé (49 px amb targetes
- * de 336 px) i creix en proporció amb les targetes més grans.
+ * Distància entre les dues targetes que es creuen, en el moment que canvien de capa,
+ * com a fracció de l'amplada de la targeta. 0.96 és el que ja funcionava bé a
+ * l'ordinador (gairebé sense tocar-se); més alt = s'aparten més.
  */
-const DODGE = 0.145;
+const CLEAR = 0.96;
 
 /**
  * Carrusel 3D estil "coverflow", replicat del portfoli d'Alex Aiguadé
@@ -332,7 +332,11 @@ export class Carousel3d {
       // Quan dues targetes es creuen al centre, s'aparten cap als costats
       // (màxim a mig camí, quan canvia quina va a sobre) i tornen a alinear-se.
       // Així el canvi de capa passa sense que es toquin i no es veu cap salt.
-      const dodge = abs < 1 ? Math.sin(Math.PI * abs) * this.cardWidth * DODGE : 0;
+      // Quant cal apartar-se perquè, en el moment del canvi de capa (a mig camí),
+      // les dues targetes quedin separades una amplada de targeta (CLEAR).
+      // Surt de la mida real de cada pantalla, així funciona igual a tots els breakpoints.
+      const need = Math.max(0, (this.cardWidth * CLEAR - spread) / 2);
+      const dodge = abs < 1 ? Math.sin(Math.PI * abs) * need : 0;
       const x = Math.sign(d) * (Math.min(abs, 2.5) * spread + dodge);
       const z = -Math.min(abs, 3) * 150;
       const rot = Math.max(-44, Math.min(44, -d * 26));

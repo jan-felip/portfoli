@@ -20,8 +20,12 @@ interface Slot {
 /** Mínim de peces a l'anell perquè el salt del final no es vegi. */
 const MIN_SLOTS = 6;
 
-/** Quant s'aparten les targetes quan es creuen al centre (fracció de la separació). */
-const DODGE = 0.35;
+/**
+ * Quant s'aparten les targetes quan es creuen al centre, com a fracció de l'amplada
+ * de la targeta. 0.145 equival a la versió que funcionava bé (49 px amb targetes
+ * de 336 px) i creix en proporció amb les targetes més grans.
+ */
+const DODGE = 0.145;
 
 /**
  * Carrusel 3D estil "coverflow", replicat del portfoli d'Alex Aiguadé
@@ -325,7 +329,7 @@ export class Carousel3d {
       // Quan dues targetes es creuen al centre, s'aparten cap als costats
       // (màxim a mig camí, quan canvia quina va a sobre) i tornen a alinear-se.
       // Així el canvi de capa passa sense que es toquin i no es veu cap salt.
-      const dodge = abs < 1 ? Math.sin(Math.PI * abs) * spread * DODGE : 0;
+      const dodge = abs < 1 ? Math.sin(Math.PI * abs) * this.cardWidth * DODGE : 0;
       const x = Math.sign(d) * (Math.min(abs, 2.5) * spread + dodge);
       const z = -Math.min(abs, 3) * 150;
       const rot = Math.max(-44, Math.min(44, -d * 26));

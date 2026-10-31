@@ -27,6 +27,9 @@ const MIN_SLOTS = 6;
  */
 const CLEAR = 1.02;
 
+/** Quant s'enfosqueix una targeta quan la del davant la tapa del tot (0 = gens). */
+const DIM = 0.5;
+
 /**
  * Carrusel 3D estil "coverflow", replicat del portfoli d'Alex Aiguadé
  * (component propi seu, sense llibreria: CSS 3D + requestAnimationFrame).
@@ -326,25 +329,36 @@ export class Carousel3d {
       ? this.cardWidth * 0.4
       : Math.max(this.cardWidth * 0.5, Math.min(this.cardWidth * 0.75, this.stageWidth * 0.22));
 
+    // Quan dues targetes es creuen al centre, s'aparten cap als costats (màxim a
+    // mig camí, quan canvia quina va a sobre) i tornen a alinear-se. L'apartat
+    // surt de la mida real de cada pantalla perquè en el canvi de capa quedin
+    // separades CLEAR amplades de targeta, a tots els breakpoints.
+    const need = Math.max(0, (this.cardWidth * CLEAR - spread) / 2);
+    const xAt = (d: number): number => {
+      const a = Math.abs(d);
+      const dodge = a < 1 ? Math.sin(Math.PI * a) * need : 0;
+      return Math.sign(d) * (Math.min(a, 2.5) * spread + dodge);
+    };
+
     pieces.forEach((piece, i) => {
       const d = this.offset(i, this.pos);
       const abs = Math.abs(d);
-      // Quan dues targetes es creuen al centre, s'aparten cap als costats
-      // (màxim a mig camí, quan canvia quina va a sobre) i tornen a alinear-se.
-      // Així el canvi de capa passa sense que es toquin i no es veu cap salt.
-      // Quant cal apartar-se perquè, en el moment del canvi de capa (a mig camí),
-      // les dues targetes quedin separades una amplada de targeta (CLEAR).
-      // Surt de la mida real de cada pantalla, així funciona igual a tots els breakpoints.
-      const need = Math.max(0, (this.cardWidth * CLEAR - spread) / 2);
-      const dodge = abs < 1 ? Math.sin(Math.PI * abs) * need : 0;
-      const x = Math.sign(d) * (Math.min(abs, 2.5) * spread + dodge);
+      const x = xAt(d);
       const z = -Math.min(abs, 3) * 150;
       const rot = Math.max(-44, Math.min(44, -d * 26));
-      // Les del costat es queden opaques (no es veu la de darrere a través)
-      // i s'enfosqueixen; només les del fons s'esvaeixen.
+      // Les del costat es queden opaques (no es veu la de darrere a través);
+      // només les del fons s'esvaeixen.
       const opacity = abs < 1.6 ? 1 : Math.max(0, 1 - (abs - 1.6) * 1.1);
-      const dim = 1 - Math.min(abs, 2) * 0.22;
-      piece.style.filter = abs < 0.05 ? '' : `brightness(${dim.toFixed(3)})`;
+
+      // S'enfosqueix només quan la del davant (la veïna més a prop del centre)
+      // li passa per sobre, i tant com la tapa. Si no es toquen, queda clara.
+      let dim = 1;
+      if (abs > 0.5) {
+        const gap = Math.abs(x - xAt(d - Math.sign(d)));
+        const covered = Math.min(1, Math.max(0, 1 - gap / (this.cardWidth * 0.85)));
+        dim = 1 - covered * DIM;
+      }
+      piece.style.filter = dim > 0.995 ? '' : `brightness(${dim.toFixed(3)})`;
 
       // Cada peça porta la seva perspectiva i l'escena queda plana: així mana el
       // z-index i les targetes no es travessen entre elles en girar.

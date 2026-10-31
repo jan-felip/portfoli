@@ -26,7 +26,7 @@ import { Project } from '../data/profile';
         <div class="card-project__role">
           @if (p.role) {
             <span class="card-project__role-text">
-              <i class="bi bi-person-gear" aria-hidden="true"></i>@for (seg of p.role; track $index) {@if (seg.url) {<a class="card-project__role-link" [href]="seg.url" target="_blank" rel="noopener">{{ seg.text }}</a>} @else { {{ seg.text }} }}
+              <i class="bi bi-person-gear" aria-hidden="true"></i>{{ p.role }}
             </span>
           }
           @if (p.involvement; as level) {

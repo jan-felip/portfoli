@@ -546,18 +546,6 @@
   }
 }
 
-.card-project__role-link {
-  color: $text;
-  text-decoration: underline;
-  text-decoration-color: var(--line-strong);
-  text-underline-offset: 3px;
-  transition: text-decoration-color 0.2s ease;
-
-  &:hover {
-    text-decoration-color: $color-accent;
-  }
-}
-
 .card-project__involvement {
   display: inline-flex;
   align-items: center;

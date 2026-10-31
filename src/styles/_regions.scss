@@ -285,3 +285,24 @@
     padding-inline: calc(var(--rail-inner) + var(--gap));
   }
 }
+
+// Amb què treballo ----------------------------------------------------
+.region-tools__inner {
+  @include rails-outer;
+  padding-top: 56px;
+}
+
+.region-tools__title {
+  margin-bottom: 32px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+  color: $text-muted;
+}
+
+// La darrera fila es fon amb la línia de la regió.
+.region-tools .block-tools {
+  margin-bottom: -1px;
+}

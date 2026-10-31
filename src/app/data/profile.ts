@@ -16,6 +16,12 @@ export interface Stat {
   icon: string;
 }
 
+/** Un tros de text del rol; si té url, és un enllaç. */
+export interface RoleSegment {
+  text: string;
+  url?: string;
+}
+
 export interface Project {
   title: string;
   description: string;
@@ -30,7 +36,7 @@ export interface Project {
   /** Es mostra a la portada. */
   featured?: boolean;
   /** Webs col·laboratives: què hi has fet tu (p. ex. "Maquetació i accessibilitat"). */
-  role?: string;
+  role?: RoleSegment[];
   /** Webs col·laboratives: quanta feina hi has fet, d'1 (puntual) a 3 (principal). */
   involvement?: 1 | 2 | 3;
 }
@@ -163,7 +169,15 @@ export const COLLABORATIONS: Project[] = [
     tags: ['Drupal', 'SCSS'],
     icon: 'globe2',
     url: 'https://ajuntament.barcelona.cat/hisenda/ca',
-    role: 'Adaptació de tot el disseny al nou estil de les webs de l’ajuntament',
+    role: [
+      { text: 'Adaptació de tot el disseny al nou estil de les webs de l’' },
+      { text: 'ajuntament', url: 'https://ajuntament.barcelona.cat/hisenda/ca' },
+      { text: ' seguint el ' },
+      {
+        text: 'nou estil',
+        url: 'https://bcnroc.ajuntament.barcelona.cat/items/8dd27817-c3dc-4011-a702-a00bc8e6a431',
+      },
+    ],
     involvement: 3,
   },
   {
@@ -172,7 +186,7 @@ export const COLLABORATIONS: Project[] = [
     year: '2026',
     tags: ['Angular', 'TypeScript'],
     icon: 'window-stack',
-    role: 'Components del formulari i validacions',
+    role: [{ text: 'Components del formulari i validacions' }],
     involvement: 2,
   },
   {
@@ -181,7 +195,7 @@ export const COLLABORATIONS: Project[] = [
     year: '2026',
     tags: ['PHP'],
     icon: 'bug',
-    role: 'Correcció d’errors i revisió d’accessibilitat',
+    role: [{ text: 'Correcció d’errors i revisió d’accessibilitat' }],
     involvement: 1,
   },
 ];

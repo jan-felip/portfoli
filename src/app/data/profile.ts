@@ -92,7 +92,7 @@ export interface Profile {
 
 export const PROFILE: Profile = {
   name: 'Jan Felip',
-  fullName: ['Jan Felip', 'Segon cognom'],
+  fullName: ['Jan Felip', 'Urgell'],
   photo: undefined,
   initials: 'JF',
   tagline: 'Desenvolupo webs i eines a mida, del disseny al servidor.',

@@ -982,6 +982,11 @@
   display: grid;
   justify-items: start;
   gap: 16px;
+  padding: 32px var(--pad);
+
+  @media (min-width: $bp-md) {
+    padding: 32px 32px 32px 0;
+  }
 }
 
 .block-identity__eyebrow {
@@ -1019,18 +1024,18 @@
   }
 }
 
-// Finestra quadrada amb la mateixa mini graella que les targetes.
+// Finestra quadrada sense arrodonir: les línies de la franja fan de vora de dalt
+// i de baix, el rail fa la dreta i la vora esquerra tanca el rectangle.
 .block-photo {
-  @include shell($radius-lg);
   position: relative;
   display: grid;
   place-items: center;
   width: 100%;
-  max-width: 380px;
   margin: 0;
   aspect-ratio: 1;
   overflow: hidden;
-  justify-self: center;
+  border-top: 1px solid var(--line);
+  background-color: $bg;
   background-image:
     linear-gradient(var(--line) 1px, transparent 1px),
     linear-gradient(90deg, var(--line) 1px, transparent 1px);
@@ -1038,7 +1043,9 @@
   background-position: center;
 
   @media (min-width: $bp-md) {
-    justify-self: end;
+    width: var(--photo-size);
+    border-top: 0;
+    border-left: 1px solid var(--line);
   }
 }
 

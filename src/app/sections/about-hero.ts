@@ -12,6 +12,8 @@ import { RevealText } from '../shared/reveal-text';
   host: { class: 'region region-about-hero' },
   template: `
     <div class="region-about-hero__inner">
+      <!-- Franja entre dues línies de la graella: nom a l'esquerra, foto a la dreta. -->
+      <div class="region-about-hero__band">
       <div class="block block-identity">
         <p class="block-identity__eyebrow reveal-item">Sobre mi</p>
         <h1 class="block-identity__name">
@@ -33,6 +35,7 @@ import { RevealText } from '../shared/reveal-text';
           </span>
         }
       </figure>
+      </div>
     </div>
   `,
 })

@@ -817,3 +817,92 @@
   font-size: 13px;
   color: $text-soft;
 }
+
+// Carrusel 3D (coverflow) -------------------------------------------------
+// Les posicions les calcula Carousel3d a cada fotograma; aquí només l'escenari.
+.carousel-3d {
+  --carousel-card: clamp(16rem, 23vw, 21rem);
+  display: block;
+}
+
+.carousel-3d__stage {
+  position: relative;
+  width: 100%;
+  min-height: 420px;
+  overflow: clip;
+  transform-style: preserve-3d;
+  touch-action: pan-y;
+  border-radius: $radius;
+  // Halo suau de l'accent darrere la targeta del davant.
+  background: radial-gradient(34% 52% at 50% 48%, color-mix(in srgb, #{$color-accent} 10%, transparent), transparent 70%);
+  outline-offset: 4px;
+}
+
+.carousel-3d__track {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transform-style: preserve-3d;
+  cursor: grab;
+
+  &[data-dragging] {
+    cursor: grabbing;
+    user-select: none;
+  }
+}
+
+.carousel-3d__item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--carousel-card);
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+
+  .card-project {
+    box-shadow: 0 26px 50px -26px rgba($color-black, 0.7);
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  // La targeta del davant s'il·lumina amb l'accent.
+  &[data-front] .card-project {
+    border-color: color-mix(in srgb, #{$color-accent} 45%, var(--line-strong));
+    box-shadow:
+      0 30px 56px -24px rgba($color-black, 0.75),
+      0 0 42px -16px color-mix(in srgb, #{$color-accent} 55%, transparent);
+  }
+
+  img {
+    -webkit-user-drag: none;
+  }
+}
+
+.carousel-3d__controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.carousel-3d__button {
+  @include shell(12px);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  font-size: 18px;
+  color: $text-soft;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    border-color: color-mix(in srgb, #{$color-accent} 40%, transparent);
+    color: $text;
+  }
+}

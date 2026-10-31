@@ -14,7 +14,7 @@ import { Spacer } from '../sections/spacer';
       intro="Webs, eines i experiments. Alguns de classe, d’altres per a clients i molts per pura curiositat."
     />
     <app-spacer />
-    <app-projects [items]="projects" heading="Projectes propis" />
+    <app-projects [items]="projects" heading="Projectes propis" [carousel]="true" />
 
     <app-spacer />
     <app-page-title
@@ -24,7 +24,7 @@ import { Spacer } from '../sections/spacer';
       intro="A Use-It anem rotant projectes. En unes webs he fet força feina i en d’altres hi he donat un cop de mà."
     />
     <app-spacer />
-    <app-projects [items]="collaborations" heading="Col·laboracions" panelId="col-laboracions" countLabel="webs" />
+    <app-projects [items]="collaborations" heading="Col·laboracions" panelId="col-laboracions" countLabel="webs" [carousel]="true" />
   `,
 })
 export class ProjectsPage {

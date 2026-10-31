@@ -1,16 +1,20 @@
-import { Component, input } from '@angular/core';
+import { Component, DestroyRef, inject, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Project } from '../data/profile';
+import { Carousel3d } from '../shared/carousel-3d';
 import { InView } from '../shared/in-view';
 import { ProjectCard } from './project-card';
 
+/** Ordinador amb ratolí i pantalla ampla: només aquí es mostra el carrusel 3D. */
+const DESKTOP_QUERY = '(min-width: 1100px) and (hover: hover) and (pointer: fine)';
+
 /**
- * Panell amb una graella de projectes. Amb [moreLink] mostra un botó
- * "Veure tots" en lloc del comptador.
+ * Panell amb projectes. Amb [carousel] fa servir el carrusel 3D a l'ordinador
+ * i la graella a mòbil i tauleta. Amb [moreLink] mostra "Veure tots".
  */
 @Component({
   selector: 'app-projects',
-  imports: [ProjectCard, InView, RouterLink],
+  imports: [ProjectCard, InView, RouterLink, Carousel3d],
   host: { class: 'region region-content' },
   template: `
     <div class="region-content__inner">
@@ -26,15 +30,19 @@ import { ProjectCard } from './project-card';
           }
         </div>
 
-        <div class="block-panel__grid">
-          @for (project of items(); track project.title; let i = $index) {
-            <app-project-card
-              appInView
-              [project]="project"
-              [style.transition-delay.ms]="(i % 3) * 90"
-            />
-          }
-        </div>
+        @if (carousel() && desktop()) {
+          <app-carousel-3d [items]="items()" [label]="heading()" />
+        } @else {
+          <div class="block-panel__grid">
+            @for (project of items(); track project.title; let i = $index) {
+              <app-project-card
+                appInView
+                [project]="project"
+                [style.transition-delay.ms]="(i % 3) * 90"
+              />
+            }
+          </div>
+        }
       </section>
     </div>
   `,
@@ -45,4 +53,16 @@ export class Projects {
   readonly panelId = input('projectes');
   readonly countLabel = input('projectes');
   readonly moreLink = input<string>();
+  /** Mostra el carrusel 3D a l'ordinador en lloc de la graella. */
+  readonly carousel = input(false);
+
+  protected readonly desktop = signal(false);
+
+  constructor() {
+    const media = matchMedia(DESKTOP_QUERY);
+    this.desktop.set(media.matches);
+    const onChange = (e: MediaQueryListEvent) => this.desktop.set(e.matches);
+    media.addEventListener('change', onChange);
+    inject(DestroyRef).onDestroy(() => media.removeEventListener('change', onChange));
+  }
 }

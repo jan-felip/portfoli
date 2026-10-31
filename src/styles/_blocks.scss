@@ -981,11 +981,13 @@
 .block-identity {
   display: grid;
   justify-items: start;
+  align-content: center;
   gap: 16px;
-  padding: 32px var(--pad);
+  padding: 56px 32px 56px 0;
 
-  @media (min-width: $bp-md) {
-    padding: 32px 32px 32px 0;
+  @media (max-width: ($bp-md - 1)) {
+    gap: 10px;
+    padding: 20px 16px 20px 0;
   }
 }
 
@@ -998,7 +1000,7 @@
 
 .block-identity__name {
   display: grid;
-  font-size: clamp(2.75rem, 7vw, 5rem);
+  font-size: clamp(2.1rem, 7vw, 5rem);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.05em;
@@ -1030,23 +1032,19 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: 100%;
+  // Alçada = la franja; amplada = proporció de foto de carnet (26 × 32 mm).
+  width: auto;
+  height: 100%;
   margin: 0;
-  aspect-ratio: 1;
+  aspect-ratio: 26 / 32;
   overflow: hidden;
-  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
   background-color: $bg;
   background-image:
     linear-gradient(var(--line) 1px, transparent 1px),
     linear-gradient(90deg, var(--line) 1px, transparent 1px);
   background-size: 32px 32px;
   background-position: center;
-
-  @media (min-width: $bp-md) {
-    width: var(--photo-size);
-    border-top: 0;
-    border-left: 1px solid var(--line);
-  }
 }
 
 .block-photo__image {
@@ -1058,6 +1056,6 @@
 }
 
 .block-photo__empty {
-  font-size: 72px;
+  font-size: clamp(40px, 8vw, 72px);
   color: var(--fg-faint);
 }

@@ -326,15 +326,10 @@
 // tocant el rail de la dreta, i la seva vora esquerra tanca el rectangle.
 .region-about-hero__band {
   @include row-lines;
+  // Nom i foto sempre l'un al costat de l'altre, també al mòbil. La foto
+  // s'estira d'una línia a l'altra i l'amplada surt de la proporció de carnet.
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  margin-inline: calc(-1 * var(--pad));
-
-  @media (min-width: $bp-md) {
-    grid-template-columns: minmax(0, 1fr) var(--photo-size);
-    align-items: center;
-    margin-left: 0;
-  }
-
-  --photo-size: clamp(260px, 32vw, 380px);
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+  margin-right: calc(-1 * var(--pad));
 }

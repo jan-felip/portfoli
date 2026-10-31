@@ -885,11 +885,11 @@
   background: transparent;
   padding-inline: var(--pad);
 
-  // L'escenari surt del panell i ocupa de banda a banda de la pantalla,
-  // perquè les targetes dels costats no es vegin tallades.
+  // L'escenari surt del marge del panell i arriba just fins als rails de la
+  // graella: les targetes es tallen netes a la línia del contorn.
   .carousel-3d__stage {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
+    width: auto;
+    margin-inline: calc(-1 * var(--pad));
     border-radius: 0;
   }
 }

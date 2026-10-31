@@ -245,14 +245,6 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
   {
-    title: 'T1 Energy',
-    description: 'Rèplica fidel d’una web corporativa per a la classe d’AWS, amb versió accessible WCAG 2.2.',
-    year: '2026',
-    tags: ['Angular', 'TypeScript', 'SCSS'],
-    icon: 'lightning-charge',
-    featured: true,
-  },
-  {
     title: 'SoluTec',
     description: 'Web per a un servei tècnic local amb mapa de cobertura i animacions de marca.',
     year: '2026',

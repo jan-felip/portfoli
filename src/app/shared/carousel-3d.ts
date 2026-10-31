@@ -25,7 +25,7 @@ const MIN_SLOTS = 6;
  * com a fracció de l'amplada de la targeta. 0.96 és el que ja funcionava bé a
  * l'ordinador (gairebé sense tocar-se); més alt = s'aparten més.
  */
-const CLEAR = 1.08;
+const CLEAR = 1.02;
 
 /**
  * Carrusel 3D estil "coverflow", replicat del portfoli d'Alex Aiguadé

@@ -21,7 +21,7 @@ interface Slot {
 const MIN_SLOTS = 6;
 
 /** Quant s'aparten les targetes quan es creuen al centre (fracció de la separació). */
-const DODGE = 0.2;
+const DODGE = 0.35;
 
 /**
  * Carrusel 3D estil "coverflow", replicat del portfoli d'Alex Aiguadé
@@ -317,7 +317,7 @@ export class Carousel3d {
     const narrow = this.stageWidth < 600;
     const spread = narrow
       ? this.cardWidth * 0.4
-      : Math.max(this.cardWidth * 0.5, Math.min(this.cardWidth * 0.75, this.stageWidth * 0.2));
+      : Math.max(this.cardWidth * 0.5, Math.min(this.cardWidth * 0.75, this.stageWidth * 0.22));
 
     pieces.forEach((piece, i) => {
       const d = this.offset(i, this.pos);

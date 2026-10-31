@@ -139,13 +139,13 @@
   height: 7px;
   border-radius: 50%;
   background: $color-accent;
-  box-shadow: 0 0 0 3px rgba($color-accent, 0.25);
+  box-shadow: 0 0 0 3px color-mix(in srgb, #{$color-accent} 25%, transparent);
   animation: badge-pulse 2.4s ease-in-out infinite;
 }
 
 @keyframes badge-pulse {
   50% {
-    box-shadow: 0 0 0 6px rgba($color-accent, 0.08);
+    box-shadow: 0 0 0 6px color-mix(in srgb, #{$color-accent} 8%, transparent);
   }
 }
 
@@ -761,7 +761,7 @@
     height: 7px;
     border-radius: 50%;
     background: $color-accent;
-    box-shadow: 0 0 0 3px rgba($color-accent, 0.25);
+    box-shadow: 0 0 0 3px color-mix(in srgb, #{$color-accent} 25%, transparent);
   }
 }
 
@@ -865,18 +865,12 @@
   will-change: transform, opacity, filter;
 
   .card-project {
-    box-shadow: 0 26px 50px -26px rgba($color-black, 0.7);
-    transition:
-      border-color 0.3s ease,
-      box-shadow 0.3s ease;
+    transition: border-color 0.3s ease;
   }
 
-  // La targeta del davant s'il·lumina amb l'accent.
+  // La targeta del davant es marca només amb la vora de l'accent, sense ombra.
   &[data-front] .card-project {
     border-color: color-mix(in srgb, #{$color-accent} 45%, var(--line-strong));
-    box-shadow:
-      0 30px 56px -24px rgba($color-black, 0.75),
-      0 0 42px -16px color-mix(in srgb, #{$color-accent} 55%, transparent);
   }
 
   img {

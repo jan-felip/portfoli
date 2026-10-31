@@ -1,7 +1,10 @@
 // Paleta del portfoli: blanc, negre i un sol accent.
 $color-white: #fff;
 $color-black: #000;
-$color-accent: #ff7600;
+// L'accent canvia amb el tema: taronja en fosc, blau verdós en clar.
+$accent-dark: #ff7600;
+$accent-light: #618990;
+$color-accent: var(--color-accent);
 
 // Colors semàntics: apunten a variables CSS que canvien amb el tema.
 $bg: var(--bg);
@@ -80,7 +83,7 @@ $ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   @include prompt-dark;
   --color-white: #{$color-white};
   --color-black: #{$color-black};
-  --color-accent: #{$color-accent};
+  --color-accent: #{$accent-dark};
   --frame-max: #{$frame-max};
   --gap: #{$gap};
   --pad: 16px;
@@ -99,4 +102,5 @@ $ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 :root[data-theme='light'] {
   @include theme(light, $color-white, $color-black, brightness(0));
   @include prompt-light;
+  --color-accent: #{$accent-light};
 }

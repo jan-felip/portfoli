@@ -1160,8 +1160,8 @@
     rotate: 45deg;
   }
 
-  // On ets ara: diamant ple i brillant.
-  &.is-current::before {
+  // Només l'última entrada (on ets ara) té el diamant ple i brillant.
+  &:last-child::before {
     background: $color-accent;
     box-shadow: 0 0 14px $color-accent;
   }
@@ -1191,7 +1191,7 @@
     border-color: var(--line-hover);
   }
 
-  .is-current & {
+  .block-chronology__entry:last-child & {
     border-color: color-mix(in srgb, #{$color-accent} 40%, var(--line-strong));
   }
 

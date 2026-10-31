@@ -878,9 +878,18 @@
   }
 }
 
-// Amb el carrusel, el panell perd el contorn arrodonit: ja queda prou separat.
+// Amb el carrusel, el panell perd el contorn i arriba fins als rails de la graella.
 .block-panel--bare {
-  border-color: transparent;
+  border: 0;
   border-radius: 0;
   background: transparent;
+  padding-inline: var(--pad);
+
+  // L'escenari surt del panell i ocupa de banda a banda de la pantalla,
+  // perquè les targetes dels costats no es vegin tallades.
+  .carousel-3d__stage {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    border-radius: 0;
+  }
 }

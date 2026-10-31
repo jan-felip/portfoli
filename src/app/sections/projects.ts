@@ -1,24 +1,22 @@
-import { Component, DestroyRef, inject, input, signal } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Project } from '../data/profile';
 import { Carousel3d } from '../shared/carousel-3d';
 import { InView } from '../shared/in-view';
 import { ProjectCard } from './project-card';
 
-/** Pantalla ampla: el panell del carrusel perd el contorn arrodonit. */
-const DESKTOP_QUERY = '(min-width: 1100px)';
-
 /**
- * Panell amb projectes. Amb [carousel] fa servir el carrusel 3D a l'ordinador
- * i la graella a mòbil i tauleta. Amb [moreLink] mostra "Veure tots".
+ * Panell amb projectes. Amb [carousel] fa servir el carrusel 3D (sense contorn,
+ * d'un rail a l'altre i amb l'escenari de banda a banda); si no, la graella.
+ * Amb [moreLink] mostra "Veure tots".
  */
 @Component({
   selector: 'app-projects',
   imports: [ProjectCard, InView, RouterLink, Carousel3d],
-  host: { class: 'region region-content' },
+  host: { class: 'region region-content', '[class.region-content--bare]': 'carousel()' },
   template: `
     <div class="region-content__inner">
-      <section class="block block-panel" [class.block-panel--bare]="carousel() && desktop()"
+      <section class="block block-panel" [class.block-panel--bare]="carousel()"
                [attr.aria-labelledby]="panelId() + '-title'">
         <div class="block-panel__toolbar">
           <h2 class="block-panel__title" [id]="panelId() + '-title'">{{ heading() }}</h2>
@@ -54,16 +52,6 @@ export class Projects {
   readonly panelId = input('projectes');
   readonly countLabel = input('projectes');
   readonly moreLink = input<string>();
-  /** Mostra el carrusel 3D a l'ordinador en lloc de la graella. */
+  /** Mostra el carrusel 3D en lloc de la graella. */
   readonly carousel = input(false);
-
-  protected readonly desktop = signal(false);
-
-  constructor() {
-    const media = matchMedia(DESKTOP_QUERY);
-    this.desktop.set(media.matches);
-    const onChange = (e: MediaQueryListEvent) => this.desktop.set(e.matches);
-    media.addEventListener('change', onChange);
-    inject(DestroyRef).onDestroy(() => media.removeEventListener('change', onChange));
-  }
 }

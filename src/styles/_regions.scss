@@ -155,6 +155,11 @@
   padding: var(--gap);
 }
 
+// Amb el carrusel no hi ha marge interior: el bloc toca els rails.
+.region-content--bare .region-content__inner {
+  padding-inline: 0;
+}
+
 // Sobre mi ---------------------------------------------------------
 .region-about__inner {
   @include rails-outer;

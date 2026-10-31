@@ -85,6 +85,7 @@ export class Carousel3d {
     return slots;
   });
 
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
   private readonly stage = viewChild.required<ElementRef<HTMLElement>>('stage');
   private readonly track = viewChild.required<ElementRef<HTMLElement>>('track');
 
@@ -303,7 +304,9 @@ export class Carousel3d {
   private measure(): void {
     const pieces = this.pieces;
     if (!pieces.length) return;
-    this.stageWidth = this.stage().nativeElement.clientWidth;
+    // L'escenari ocupa tota la pantalla, però la separació es calcula amb
+    // l'amplada del contingut perquè les targetes quedin igual de juntes.
+    this.stageWidth = this.host.clientWidth;
     this.cardWidth = pieces[0].offsetWidth;
     let tallest = 0;
     for (const p of pieces) tallest = Math.max(tallest, p.offsetHeight);

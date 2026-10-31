@@ -12,7 +12,7 @@ import { PROFILE } from '../data/profile';
       </div>
 
       <ul class="block block-social" aria-label="Xarxes">
-        @for (link of profile.links; track link.href) {
+        @for (link of links; track link.label) {
           <li>
             <a class="block-social__link" [href]="link.href" target="_blank" rel="noopener"
                [attr.aria-label]="link.label" [attr.title]="link.label">
@@ -28,5 +28,7 @@ import { PROFILE } from '../data/profile';
 })
 export class SiteFooter {
   protected readonly profile = PROFILE;
+  /** Discord i altres contactes del peu van davant de GitHub i LinkedIn. */
+  protected readonly links = [...PROFILE.footerLinks, ...PROFILE.links];
   protected readonly year = new Date().getFullYear();
 }

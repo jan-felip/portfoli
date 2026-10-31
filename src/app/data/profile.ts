@@ -64,6 +64,8 @@ export interface Profile {
   /** PDF del currículum dins de /public. */
   cvFile: string;
   links: Link[];
+  /** Contactes que només surten al peu, davant de "links". */
+  footerLinks: Link[];
   about: {
     eyebrow: string;
     title: string;
@@ -90,6 +92,10 @@ export const PROFILE: Profile = {
   links: [
     { label: 'GitHub', href: 'https://github.com/jan-felip', icon: 'github' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/', icon: 'linkedin' },
+  ],
+  footerLinks: [
+    // Posa-hi el teu enllaç: https://discord.com/users/<el-teu-id> o una invitació.
+    { label: 'Discord', href: 'https://discord.com/', icon: 'discord' },
   ],
   about: {
     eyebrow: 'Sobre mi',

@@ -3,20 +3,20 @@ import { RouterLink } from '@angular/router';
 import { EDUCATION, EXPERIENCE } from '../data/profile';
 import { About } from '../sections/about';
 import { AboutHero } from '../sections/about-hero';
+import { Chronology, ChronologySource } from '../sections/chronology';
 import { Companies } from '../sections/companies';
-import { CvGroup, CvTimeline } from '../sections/cv-timeline';
 import { Spacer } from '../sections/spacer';
 
 @Component({
   selector: 'app-about-page',
-  imports: [AboutHero, About, Companies, Spacer, CvTimeline, RouterLink],
+  imports: [AboutHero, About, Companies, Spacer, Chronology, RouterLink],
   template: `
     <app-about-hero />
     <app-spacer />
     <app-about />
     <app-spacer />
 
-    <!-- Trajectòria: on he treballat i on he estudiat. -->
+    <!-- Trajectòria: cronologia de feina i estudis. -->
     <div class="region region-cv">
       <div class="region-cv__inner">
         <div class="region-cv__head">
@@ -25,7 +25,7 @@ import { Spacer } from '../sections/spacer';
             Currículum complet <i class="bi bi-arrow-right" aria-hidden="true"></i>
           </a>
         </div>
-        <app-cv-timeline [groups]="groups" idPrefix="trajectoria-" />
+        <app-chronology [sources]="sources" />
       </div>
     </div>
 
@@ -34,8 +34,8 @@ import { Spacer } from '../sections/spacer';
   `,
 })
 export class AboutPage {
-  protected readonly groups: CvGroup[] = [
-    { id: 'experiencia', title: 'On he treballat', icon: 'briefcase', entries: EXPERIENCE },
-    { id: 'formacio', title: 'On he estudiat', icon: 'mortarboard', entries: EDUCATION },
+  protected readonly sources: ChronologySource[] = [
+    { label: 'Feina', icon: 'briefcase', entries: EXPERIENCE },
+    { label: 'Estudis', icon: 'mortarboard', entries: EDUCATION },
   ];
 }

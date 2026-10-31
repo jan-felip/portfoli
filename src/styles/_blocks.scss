@@ -1105,3 +1105,117 @@
   font-size: clamp(40px, 8vw, 72px);
   color: var(--fg-faint);
 }
+
+// Cronologia: línia discontínua, diamants i anys --------------------------
+.block-chronology {
+  --year-col: 88px;
+  display: block;
+  padding-block: 16px 24px;
+
+  @media (max-width: ($bp-md - 1)) {
+    --year-col: 52px;
+  }
+}
+
+.block-chronology__list {
+  position: relative;
+  display: grid;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  // La línia que uneix tots els diamants.
+  &::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: var(--year-col);
+    border-left: 1px dashed var(--line-strong);
+  }
+}
+
+.block-chronology__entry {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--year-col) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+
+  @media (max-width: ($bp-md - 1)) {
+    gap: 20px;
+  }
+
+  // Diamant sobre la línia.
+  &::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    left: calc(var(--year-col) - 5px);
+    width: 11px;
+    height: 11px;
+    border: 1px solid $color-accent;
+    background: $bg;
+    rotate: 45deg;
+  }
+
+  // On ets ara: diamant ple i brillant.
+  &.is-current::before {
+    background: $color-accent;
+    box-shadow: 0 0 14px $color-accent;
+  }
+}
+
+.block-chronology__year {
+  padding-top: 14px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: $color-accent;
+  font-variant-numeric: tabular-nums;
+
+  @media (max-width: ($bp-md - 1)) {
+    font-size: 15px;
+  }
+}
+
+.block-chronology__card {
+  @include shell($radius-lg);
+  display: grid;
+  gap: 4px;
+  padding: 20px 24px 22px;
+  transition: border-color 0.3s ease;
+
+  &:hover {
+    border-color: var(--line-hover);
+  }
+
+  .is-current & {
+    border-color: color-mix(in srgb, #{$color-accent} 40%, var(--line-strong));
+  }
+
+  @media (max-width: ($bp-md - 1)) {
+    padding: 16px 16px 18px;
+  }
+}
+
+.block-chronology__kind {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $text-muted;
+
+  .bi {
+    color: $color-accent;
+  }
+}
+
+.block-chronology__period {
+  letter-spacing: 0;
+  text-transform: none;
+}

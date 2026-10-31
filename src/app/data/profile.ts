@@ -209,8 +209,8 @@ export const COLLABORATIONS: Project[] = [
     icon: 'globe2',
     image: 'projects/peusa.jpg',
     url: 'https://www.peusa.org/',
-    role: 'Vaig agafar el projecte a mig fer: correcció d’animacions, hovers i disseny, i un gràfic SVG generat amb PHP a partir de dades d’una API i d’un CSV',
-    involvement: 3,
+    role: 'Correcció en base al disseny i gràfics SVGs generats en PHP a partir de dades d’API i CSVs',
+    involvement: 2,
   },
   {
     title: 'SJD Terres de Lleida',

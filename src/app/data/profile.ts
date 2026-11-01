@@ -98,7 +98,7 @@ export interface Profile {
 export const PROFILE: Profile = {
   name: 'Jan Felip',
   fullName: ['Jan Felip', 'Urgell'],
-  photo: undefined,
+  photo: 'jo.webp',
   initials: 'JF',
   tagline: 'Desenvolupo webs i eines a mida, del disseny al servidor.',
   // Prefix fix davant de cada frase (deixa'l buit si les frases ja són completes).

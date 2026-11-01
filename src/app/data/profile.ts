@@ -114,18 +114,17 @@ export const PROFILE: Profile = {
   cvFile: 'cv.pdf',
   links: [
     { label: 'GitHub', href: 'https://github.com/jan-felip', icon: 'github' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/', icon: 'linkedin' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jan-felip/', icon: 'linkedin' },
   ],
   footerLinks: [
-    // Posa-hi el teu enllaç: https://discord.com/users/<el-teu-id> o una invitació.
-    { label: 'Discord', href: 'https://discord.com/', icon: 'discord' },
+    { label: 'Discord', href: 'https://discord.com/users/736374081330348032/', icon: 'discord' },
   ],
   about: {
     eyebrow: 'Qui sóc',
     title: 'Codi net, disseny cuidat i ganes d’aprendre.',
     paragraphs: [
-      'Escriu aquí qui ets, què estudies i què t’agrada fer. Dues o tres frases curtes funcionen millor que un paràgraf llarg.',
-      'Pots afegir-hi la teva formació, les tecnologies que fas servir o què busques ara mateix.',
+      'Déu vos guard, benvingut al meu portafoli. Sóc un desenvolupador web en formació, actualment estudiant a iLERNA Lleida i intern de pràctiques a USE-IT.',
+      'Tot coneixement és poc, i jo estic aquí per aprendre i créixer com a programador i com a persona.',
     ],
   },
   stats: [
@@ -161,34 +160,99 @@ export const COMPANIES: Company[] = [
 // On has treballat. "tasks" és la llista de coses fetes a cada lloc, com a LinkedIn.
 export const EXPERIENCE: CvEntry[] = [
   {
+    period: 'Estiu de 2023',
+    title: 'Instal·lació i manteniment',
+    place: 'SoluTec · Tàrrega',
+    logo: 'logos/solutec-tarrega_small.svg',
+    url: 'https://www.solutec.cat',
+    current: true,
+    description: 'Treball a l’empresa familiar; sempre va bé adquirir coneixements.',
+    tasks: [
+      'Instal·lació, revisió i manteniment d’aparells d’aire condicionat',
+    ],
+  },
+  {
+    period: 'Hivern de 2024 a 2025',
+    title: 'Instal·lació i manteniment',
+    place: 'SoluTec · Tàrrega',
+    logo: 'logos/solutec-tarrega_small.svg',
+    url: 'https://www.solutec.cat',
+    current: true,
+    description: 'Treball a l’empresa familiar; sempre va bé adquirir coneixements.',
+    tasks: [
+      'Instal·lació, revisió i manteniment d’estufes de pellets i calderes de gas i gasoil',
+    ],
+  },
+  {
     period: '2026 - actualitat',
     title: 'Desenvolupador web (pràctiques)',
     place: 'USE-IT · Lleida',
-    logo: 'logos/use-it-lleida.png',
+    logo: 'logos/use-it-lleida_small.png',
     url: 'https://useit.es/ca',
     current: true,
     description: 'Treball en equip rotant entre projectes web de clients.',
     tasks: [
-      'Maquetació i adaptació de dissenys en webs Drupal amb SCSS',
-      'Hovers, animacions i ajustos de disseny',
-      'Gràfics SVG generats en PHP a partir d’APIs i CSVs',
+      'Adaptació de dissenys en webs Drupal amb SCSS',
       'Introducció i revisió de continguts',
+      'Control de versions amb Git',
+      'Creació de mòduls Drupal amb PHP i Twig',
+      'Manteniment de servidors',
     ],
-    tags: ['Drupal', 'PHP', 'SCSS'],
+    tags: ['Drupal', 'PHP', 'SCSS', 'JavaScript', 'Twig', 'Git'],
   },
 ];
 
 // On has estudiat.
 export const EDUCATION: CvEntry[] = [
   {
-    period: '2024 - actualitat',
+    period: '2009 - 2018',
+    title: 'L’escola que em va acollir des de petit',
+    place: 'Jacint Verdaguer · Tàrrega',
+    url: 'https://agora.xtec.cat/ceip-jacint-verdaguer-tarrega/',
+    current: false,
+    tasks: [
+      'Educació primària. Tot i demostrar un fort interès per la informàtica des de petit, no hi ha gran cosa a destacar d’aquests anys encara...',
+    ],
+  },
+  {
+    period: '2018 - 2022',
+    title: 'L’institut on vaig començar a prosperar',
+    place: 'Manuel de Pedrolo · Tàrrega',
+    url: 'https://insmanueldepedrolo2.ieduca.com/',
+    current: false,
+    tasks: [
+      'Educació secundària. Amb més eines a l’abast, vaig començar a aprendre per mi mateix i a fer els meus primers projectes de programació. Coses simples però útils per assentar bases i conèixer noves tecnologies.',
+    ],
+  },
+  {
+    period: '2022 - 2024',
+    title: 'Batxillerat tecnològic',
+    place: 'Manuel de Pedrolo · Tàrrega',
+    url: 'https://insmanueldepedrolo2.ieduca.com/',
+    current: false,
+    tasks: [
+      'Havent finalitzat l’ESO, vaig decidir seguir amb un batxillerat tecnològic per aprofundir en informàtica i programació. Malauradament, a classe poca cosa vaig aprendre de programació més enllà d’algunes pràctiques amb C++ i Arduino, però en destaco les classes de física, matemàtiques i tecnologia, que em van ajudar a entendre millor el món que m’envolta i a desenvolupar el pensament lògic.',
+    ],
+  },
+  {
+    period: '2024 - 2025',
+    title: 'Batxillerat tecnològic',
+    place: 'Marius Torres · Lleida',
+    url: 'https://ioc.xtec.cat/educacio/',
+    current: false,
+    tasks: [
+      'Per falta de temps el segon any, vaig repartir-me les assignatures per acabar-lo en dos cursos, pel que el vaig estudiar a distància el darrer any a través de l’Institut Obert de Catalunya matriculat al Marius Torres de Lleida. Tot i la controvèrsia, vaig poder acabar el batxillerat amb un bon nivell.',
+    ],
+  },
+  {
+    period: '2025 - actualitat',
     title: 'CFGS Desenvolupament d’Aplicacions Web',
-    place: 'Ilerna · Lleida',
+    place: 'iLERNA · Lleida',
     url: 'https://www.ilerna.es/',
     current: true,
     tasks: [
-      'Programació frontend i backend: Angular, TypeScript, PHP, Laravel i Java',
-      'Bases de dades, desplegament i control de versions amb Git',
+      'Amb anhels d’accedir a un cicle superior relacionat amb el que m’apassionava, vaig acabar entrant a iLerna. Aquí finalment vaig aprendre nous llenguatges de programació i metodologies, i així segueix sent fins avui. A hores d’ara, compagino els estudis amb les pràctiques de l’estada a l’empresa.',
+      'En destaco la programació frontend i backend amb Angular, TypeScript, PHP, Laravel, Java, bases de dades relacionals i no relacionals, desplegament de Dockers i control de versions amb Git',
     ],
   },
 ];

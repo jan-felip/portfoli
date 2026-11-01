@@ -266,7 +266,7 @@ export const COLLABORATIONS: Project[] = [
 export const PROJECTS: Project[] = [
   {
     title: 'Netscan',
-    description: 'Escàner de xarxa portable amb tauler web, escaneig de ports en viu i terminal SSH.',
+    description: 'Escàner de xarxa portable amb tauler web, escaneig de ports en viu i terminal SSH, amb una interfície amigable.',
     year: '2026',
     tags: ['Python', 'JavaScript', 'Xarxes'],
     icon: 'router',
@@ -287,7 +287,10 @@ export const PROJECTS: Project[] = [
     description: 'Un panell de gestió de dockers, entre altres coses, inspirat en les Tempads de la sèrie Loki.',
     year: '2024 - 2026',
     tags: ['HTML', 'JavaScript', 'SCSS', 'Python', 'Flask', 'Docker'],
+    image: 'projects/tempad.jpg',
+    url: 'https://tempad.walker.cat/',
     icon: 'database',
+    featured: true,
   },
   {
     title: 'Projecte cinc',

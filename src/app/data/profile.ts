@@ -283,10 +283,10 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
   {
-    title: 'Projecte quatre',
-    description: 'Descripció breu del projecte: què fa i què hi vas aprendre.',
-    year: '2025',
-    tags: ['Laravel', 'PHP'],
+    title: 'Tempad',
+    description: 'Un panell de gestió de dockers, entre altres coses, inspirat en les Tempads de la sèrie Loki.',
+    year: '2024 - 2026',
+    tags: ['HTML', 'JavaScript', 'SCSS', 'Python', 'Flask', 'Docker'],
     icon: 'database',
   },
   {

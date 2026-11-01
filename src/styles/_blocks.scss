@@ -915,6 +915,9 @@
   width: 100%;
   min-height: 360px;
   overflow: clip;
+  // Crea un context d'apilament propi: el z-index de les targetes (fins a 120)
+  // queda tancat dins del carrusel i no passa per sobre de la capçalera.
+  isolation: isolate;
   touch-action: pan-y;
   border-radius: $radius;
   // Halo suau de l'accent darrere la targeta del davant.

@@ -84,6 +84,10 @@ $ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --color-white: #{$color-white};
   --color-black: #{$color-black};
   --color-accent: #{$accent-dark};
+  // Botó principal: text negre sobre el taronja (7.8:1).
+  --button-bg: #{$accent-dark};
+  --button-fg: #{$color-black};
+  --accent-text: #{$accent-dark};
   --frame-max: #{$frame-max};
   --gap: #{$gap};
   --pad: 16px;
@@ -103,4 +107,9 @@ $ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   @include theme(light, $color-white, $color-black, brightness(0));
   @include prompt-light;
   --color-accent: #{$accent-light};
+  // Botó principal: el mateix to una mica més fosc perquè el blanc passi (4.7:1).
+  --button-bg: #527a83;
+  --button-fg: #{$color-white};
+  // Text petit amb el color de l'accent: el to fosc perquè passi sobre blanc.
+  --accent-text: #527a83;
 }

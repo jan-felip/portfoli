@@ -2,11 +2,14 @@ import { Component, afterNextRender, computed, input, signal } from '@angular/co
 
 /**
  * Text que apareix paraula a paraula (desenfocat + puja), com la portada d'Aura.
+ * Els lectors de pantalla llegeixen la frase sencera del span amagat; les
+ * paraules animades queden fora de l'arbre d'accessibilitat.
  */
 @Component({
   selector: 'app-reveal-text',
-  host: { class: 'reveal-text', '[attr.aria-label]': 'text()' },
+  host: { class: 'reveal-text' },
   template: `
+    <span class="visually-hidden">{{ text() }}</span>
     @for (word of words(); track $index) {
       <span
         class="reveal-text__word"

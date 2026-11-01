@@ -110,7 +110,7 @@ export const PROFILE: Profile = {
     'Algú que cuida cada píxel',
   ],
   location: 'Tàrrega, Lleida',
-  email: 'hola@exemple.cat',
+  email: 'hola@walker.cat',
   cvFile: 'cv.pdf',
   links: [
     { label: 'GitHub', href: 'https://github.com/jan-felip', icon: 'github' },

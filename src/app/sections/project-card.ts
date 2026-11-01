@@ -8,7 +8,8 @@ import { Project } from '../data/profile';
     @let p = project();
     <div class="card-project__media" [class.card-project__media--brand]="p.brand">
       @if (p.brand; as b) {
-        <div class="card-project__brand" [style.color]="b.color" [style.font-family]="b.font">
+        <!-- Logotip decoratiu: el nom ja surt al títol de la targeta. -->
+        <div class="card-project__brand" aria-hidden="true" [style.color]="b.color" [style.font-family]="b.font">
           <i class="card-project__brand-icon bi" [class]="'bi-' + b.icon" aria-hidden="true"></i>
           <span class="card-project__brand-name">{{ b.name }}</span>
         </div>
@@ -35,8 +36,8 @@ import { Project } from '../data/profile';
             </span>
           }
           @if (p.involvement; as level) {
-            <span class="card-project__involvement" [attr.aria-label]="'Participació: ' + levels[level]"
-                  [attr.title]="'Participació: ' + levels[level]">
+            <span class="card-project__involvement" [attr.title]="'Participació: ' + levels[level]">
+              <span class="visually-hidden">Participació:</span>
               @for (n of [1, 2, 3]; track n) {
                 <span class="card-project__bar" [class.is-on]="n <= level" aria-hidden="true"></span>
               }

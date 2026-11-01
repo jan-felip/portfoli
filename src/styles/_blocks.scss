@@ -329,14 +329,15 @@
   @include pill-button;
   border-radius: 8px;
 
+  // Colors propis del botó principal perquè el text tingui prou contrast (4.5:1).
   &--primary {
-    border-color: $color-accent;
-    background: $color-accent;
-    color: $color-white;
+    border-color: var(--button-bg);
+    background: var(--button-bg);
+    color: var(--button-fg);
 
     &:hover {
       border-color: $text;
-      color: $color-white;
+      color: var(--button-fg);
     }
   }
 }
@@ -473,6 +474,11 @@
 // Portada de marca: fons blanc pla amb la icona centrada sobre el nom.
 .card-project__media--brand {
   background: $color-white;
+
+  // Sobre el blanc, la xapa translúcida quedava grisa i amb poc contrast.
+  .card-project__tag {
+    background: $bg;
+  }
 }
 
 .card-project__brand {
@@ -1172,7 +1178,7 @@
   font-size: 18px;
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: $color-accent;
+  color: var(--accent-text);
   font-variant-numeric: tabular-nums;
 
   @media (max-width: ($bp-md - 1)) {

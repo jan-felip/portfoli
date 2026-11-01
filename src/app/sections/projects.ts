@@ -30,7 +30,8 @@ import { ProjectCard } from './project-card';
         </div>
 
         @if (carousel()) {
-          <app-carousel-3d [items]="items()" [label]="heading()" />
+          <!-- Nom diferent del de la secció perquè les dues regions no es confonguin. -->
+          <app-carousel-3d [items]="items()" [label]="'Carrusel: ' + heading()" />
         } @else {
           <div class="block-panel__grid">
             @for (project of items(); track project.title; let i = $index) {

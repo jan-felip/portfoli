@@ -74,6 +74,11 @@
   z-index: 50;
   background: var(--header-bg);
   backdrop-filter: blur(12px);
+
+  // A dalt de tot segueix el scroll (sense transició); més avall s'amaga o torna amb ella.
+  &.is-snap {
+    transition: translate 0.35s $ease-out;
+  }
 }
 
 .region-header__inner {

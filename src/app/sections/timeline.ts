@@ -157,7 +157,7 @@ const GRID_CELL = 64;
 
                   <!-- Detall: només es veu quan la targeta és oberta. -->
                   <div class="timeline__more">
-                    <div class="timeline__more-in">
+                    <div class="timeline__more-in" data-lenis-prevent>
                       @if (item.entry.description) {
                         <p class="timeline__text">{{ item.entry.description }}</p>
                       }

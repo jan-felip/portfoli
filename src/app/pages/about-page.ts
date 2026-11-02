@@ -3,29 +3,29 @@ import { RouterLink } from '@angular/router';
 import { EDUCATION, EXPERIENCE } from '../data/profile';
 import { About } from '../sections/about';
 import { AboutHero } from '../sections/about-hero';
-import { Chronology, ChronologySource } from '../sections/chronology';
 import { Companies } from '../sections/companies';
 import { Spacer } from '../sections/spacer';
+import { Timeline, TimelineSource } from '../sections/timeline';
 
 @Component({
   selector: 'app-about-page',
-  imports: [AboutHero, About, Companies, Spacer, Chronology, RouterLink],
+  imports: [AboutHero, About, Companies, Spacer, Timeline, RouterLink],
   template: `
     <app-about-hero />
     <app-spacer />
     <app-about />
     <app-spacer />
 
-    <!-- Trajectòria: cronologia de feina i estudis. -->
-    <div class="region region-cv">
-      <div class="region-cv__inner">
-        <div class="region-cv__head">
-          <h2 class="region-cv__title">Trajectòria</h2>
+    <!-- Trajectòria: cronologia horitzontal de feina i estudis, de més recent a més antic. -->
+    <div class="region region-timeline">
+      <div class="region-timeline__inner">
+        <div class="region-timeline__head">
+          <h2 class="region-timeline__title">Trajectòria</h2>
           <a class="block-panel__more" routerLink="/curriculum">
             Currículum complet <i class="bi bi-arrow-right" aria-hidden="true"></i>
           </a>
         </div>
-        <app-chronology [sources]="sources" />
+        <app-timeline [sources]="sources" label="Trajectòria" />
       </div>
     </div>
 
@@ -34,7 +34,7 @@ import { Spacer } from '../sections/spacer';
   `,
 })
 export class AboutPage {
-  protected readonly sources: ChronologySource[] = [
+  protected readonly sources: TimelineSource[] = [
     { label: 'Feina', icon: 'briefcase', entries: EXPERIENCE },
     { label: 'Estudis', icon: 'mortarboard', entries: EDUCATION },
   ];

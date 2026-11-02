@@ -55,7 +55,12 @@ export interface Company {
 }
 
 export interface CvEntry {
+  /** Text lliure que es mostra a la targeta (p. ex. "Estiu de 2023"). */
   period: string;
+  /** Inici en format "AAAA-MM": ordena i col·loca l'entrada a la cronologia. */
+  start?: string;
+  /** Final "AAAA-MM" (mes inclòs). Si no hi és, l'entrada continua fins avui. */
+  end?: string;
   title: string;
   place: string;
   description?: string;
@@ -64,6 +69,8 @@ export interface CvEntry {
   url?: string;
   /** Logo del lloc dins de /public. */
   logo?: string;
+  /** Imatge de dalt de la targeta de la cronologia, dins de /public (p. ex. "timeline/escola.jpg"). */
+  image?: string;
   /** Què has fet en aquest lloc, una línia per punt. */
   tasks?: string[];
   tags?: string[];
@@ -161,6 +168,9 @@ export const COMPANIES: Company[] = [
 export const EXPERIENCE: CvEntry[] = [
   {
     period: 'Estiu de 2023',
+    image: 'timeline/solutec-tarrega-1.jpg',
+    start: '2023-06',
+    end: '2023-08',
     title: 'Instal·lació i manteniment',
     place: 'SoluTec · Tàrrega',
     logo: 'logos/solutec-tarrega_small.svg',
@@ -173,6 +183,9 @@ export const EXPERIENCE: CvEntry[] = [
   },
   {
     period: 'Hivern de 2024 a 2025',
+    image: 'timeline/solutec-tarrega-2.jpg',
+    start: '2024-12',
+    end: '2025-02',
     title: 'Instal·lació i manteniment',
     place: 'SoluTec · Tàrrega',
     logo: 'logos/solutec-tarrega_small.svg',
@@ -185,6 +198,8 @@ export const EXPERIENCE: CvEntry[] = [
   },
   {
     period: '2026 - actualitat',
+    image: 'timeline/useit-lleida.webp',
+    start: '2026-03',
     title: 'Desenvolupador web (pràctiques)',
     place: 'USE-IT · Lleida',
     logo: 'logos/use-it-lleida_small.png',
@@ -206,6 +221,9 @@ export const EXPERIENCE: CvEntry[] = [
 export const EDUCATION: CvEntry[] = [
   {
     period: '2009 - 2018',
+    image: 'timeline/jacint-verdaguer-tarrega.webp',
+    start: '2009-09',
+    end: '2018-06',
     title: 'L’escola que em va acollir des de petit',
     place: 'Jacint Verdaguer · Tàrrega',
     url: 'https://agora.xtec.cat/ceip-jacint-verdaguer-tarrega/',
@@ -216,6 +234,9 @@ export const EDUCATION: CvEntry[] = [
   },
   {
     period: '2018 - 2022',
+    image: 'timeline/manuel-de-pedrolo-tarrega-1.webp',
+    start: '2018-09',
+    end: '2022-06',
     title: 'L’institut on vaig començar a prosperar',
     place: 'Manuel de Pedrolo · Tàrrega',
     url: 'https://insmanueldepedrolo2.ieduca.com/',
@@ -226,6 +247,9 @@ export const EDUCATION: CvEntry[] = [
   },
   {
     period: '2022 - 2024',
+    image: 'timeline/manuel-de-pedrolo-tarrega-2.webp',
+    start: '2022-09',
+    end: '2024-06',
     title: 'Batxillerat tecnològic',
     place: 'Manuel de Pedrolo · Tàrrega',
     url: 'https://insmanueldepedrolo2.ieduca.com/',
@@ -236,6 +260,9 @@ export const EDUCATION: CvEntry[] = [
   },
   {
     period: '2024 - 2025',
+    image: 'timeline/marius-torres-lleida.webp',
+    start: '2024-09',
+    end: '2025-06',
     title: 'Batxillerat tecnològic',
     place: 'Marius Torres · Lleida',
     url: 'https://ioc.xtec.cat/educacio/',
@@ -246,6 +273,8 @@ export const EDUCATION: CvEntry[] = [
   },
   {
     period: '2025 - actualitat',
+    image: 'timeline/ilerna-lleida.webp',
+    start: '2025-09',
     title: 'CFGS Desenvolupament d’Aplicacions Web',
     place: 'iLERNA · Lleida',
     url: 'https://www.ilerna.es/',

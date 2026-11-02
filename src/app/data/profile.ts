@@ -168,7 +168,7 @@ export const COMPANIES: Company[] = [
 export const EXPERIENCE: CvEntry[] = [
   {
     period: 'Estiu de 2023',
-    image: 'timeline/solutec-tarrega-1.jpg',
+    image: 'timeline/solutec-tarrega-1.webp',
     start: '2023-06',
     end: '2023-08',
     title: 'Instal·lació i manteniment',
@@ -178,12 +178,13 @@ export const EXPERIENCE: CvEntry[] = [
     current: true,
     description: 'Treball a l’empresa familiar; sempre va bé adquirir coneixements.',
     tasks: [
-      'Instal·lació, revisió i manteniment d’aparells d’aire condicionat',
+      'Instal·lació, revisió i manteniment d’aparells d’aire condicionat.',
+      'Instal·lació, revisió i manteniment de calderes de gas i gasoil.',
     ],
   },
   {
     period: 'Hivern de 2024 a 2025',
-    image: 'timeline/solutec-tarrega-2.jpg',
+    image: 'timeline/solutec-tarrega-2.webp',
     start: '2024-12',
     end: '2025-02',
     title: 'Instal·lació i manteniment',
@@ -193,7 +194,26 @@ export const EXPERIENCE: CvEntry[] = [
     current: true,
     description: 'Treball a l’empresa familiar; sempre va bé adquirir coneixements.',
     tasks: [
-      'Instal·lació, revisió i manteniment d’estufes de pellets i calderes de gas i gasoil',
+      'Revisió, neteja i manteniment d’estufes de pellets i calderes de gas i gasoil.',
+    ],
+  },
+  {
+    period: 'Hivern de 2024 a estiu de 2026',
+    image: 'timeline/cubecat-online.webp',
+    start: '2024-12',
+    end: '2025-02',
+    title: 'Programació i gestió de comunitat',
+    place: 'Cubecat · Online',
+    logo: 'logos/cubecat_small.png',
+    url: 'https://www.cubecat.cat',
+    current: true,
+    description: 'Un hobbie que va anar escalant.',
+    tasks: [
+      'Encarregat i responsable de la secció de desenvolupament durant any i mig.',
+      'Desenvolupament de mecàniques, esdeveniments i continguts en llenguatges adaptats a Minecraft.',
+      'Programació i manteniment de bots de Dsicord amb JavaScript i Python.',
+      'Gestió de la comunitat.',
+      'Membre fundador de l’Associació sense ànim de lucre Cubecat.',
     ],
   },
   {
@@ -207,11 +227,11 @@ export const EXPERIENCE: CvEntry[] = [
     current: true,
     description: 'Treball en equip rotant entre projectes web de clients.',
     tasks: [
-      'Adaptació de dissenys en webs Drupal amb SCSS',
-      'Introducció i revisió de continguts',
-      'Control de versions amb Git',
-      'Creació de mòduls Drupal amb PHP i Twig',
-      'Manteniment de servidors',
+      'Adaptació de dissenys en webs Drupal amb SCSS.',
+      'Introducció i revisió de continguts.',
+      'Control de versions amb Git.',
+      'Creació de mòduls Drupal amb PHP i Twig.',
+      'Manteniment de servidors.',
     ],
     tags: ['Drupal', 'PHP', 'SCSS', 'JavaScript', 'Twig', 'Git'],
   },
@@ -281,7 +301,7 @@ export const EDUCATION: CvEntry[] = [
     current: true,
     tasks: [
       'Amb anhels d’accedir a un cicle superior relacionat amb el que m’apassionava, vaig acabar entrant a iLerna. Aquí finalment vaig aprendre nous llenguatges de programació i metodologies, i així segueix sent fins avui. A hores d’ara, compagino els estudis amb les pràctiques de l’estada a l’empresa.',
-      'En destaco la programació frontend i backend amb Angular, TypeScript, PHP, Laravel, Java, bases de dades relacionals i no relacionals, desplegament de Dockers i control de versions amb Git',
+      'En destaco la programació frontend i backend amb Angular, TypeScript, PHP, Laravel, Java, bases de dades relacionals i no relacionals, desplegament de Dockers i control de versions amb Git.',
     ],
   },
 ];

@@ -106,9 +106,18 @@ const GRID_CELL = 64;
                   <span class="timeline__yr">{{ item.year }}</span>
                 </button>
 
-                <article class="timeline__card">
-                  @if (item.entry.image) {
-                    <div class="timeline__media">
+                <article
+                  class="timeline__card"
+                  [class.is-open]="openIdx() === i"
+                  (pointerenter)="onCardMove(i, $event)"
+                  (pointermove)="onCardMove(i, $event)"
+                  (pointerleave)="closeCard()"
+                  (click)="onCardClick(i, $event)"
+                >
+                  <!-- Imatge gran per defecte; es plega cap amunt quan la targeta s'obre. -->
+                  <div class="timeline__media">
+                    <i class="bi timeline__ph" [class]="'bi-' + item.icon" aria-hidden="true"></i>
+                    @if (item.entry.image) {
                       <img
                         class="timeline__image"
                         [src]="item.entry.image"
@@ -117,8 +126,9 @@ const GRID_CELL = 64;
                         draggable="false"
                         (error)="$any($event.target).hidden = true"
                       />
-                    </div>
-                  }
+                    }
+                  </div>
+
                   <div class="timeline__body">
                     <header class="timeline__top">
                       <span class="timeline__kind">
@@ -127,46 +137,56 @@ const GRID_CELL = 64;
                       <span class="timeline__period">
                         @if (item.ongoing) {
                           <i class="timeline__live" aria-hidden="true"></i>
-                        }{{ item.entry.period }}
+                        }
+                        <i class="bi bi-calendar3" aria-hidden="true"></i>{{ item.entry.period }}
                       </span>
                     </header>
 
                     <div class="timeline__who">
-                      <span class="timeline__logo" [class.timeline__logo--icon]="!item.entry.logo">
-                        @if (item.entry.logo) {
+                      @if (item.entry.logo) {
+                        <span class="timeline__logo">
                           <img [src]="item.entry.logo" alt="" loading="lazy" draggable="false" />
-                        } @else {
-                          <i class="bi" [class]="'bi-' + item.icon" aria-hidden="true"></i>
-                        }
-                      </span>
+                        </span>
+                      }
                       <div>
                         <h3 class="timeline__title">{{ item.entry.title }}</h3>
                         <p class="timeline__place">{{ item.entry.place }}</p>
                       </div>
                     </div>
+                  </div>
 
-                    @if (item.entry.description) {
-                      <p class="timeline__text">{{ item.entry.description }}</p>
-                    }
-                    @if (item.entry.tasks?.length) {
-                      <ul class="timeline__tasks">
-                        @for (task of item.entry.tasks; track $index; let t = $index) {
-                          <li [style.--i]="t">{{ task }}</li>
-                        }
-                      </ul>
-                    }
-                    @if (item.entry.tags?.length) {
-                      <ul class="timeline__tags" aria-label="Tecnologies">
-                        @for (tag of item.entry.tags; track tag) {
-                          <li>{{ tag }}</li>
-                        }
-                      </ul>
-                    }
-                    @if (item.entry.url) {
-                      <a class="timeline__link" [href]="item.entry.url" target="_blank" rel="noopener">
-                        Visita la web <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-                      </a>
-                    }
+                  <!-- Detall: només es veu quan la targeta és oberta. -->
+                  <div class="timeline__more">
+                    <div class="timeline__more-in">
+                      @if (item.entry.description) {
+                        <p class="timeline__text">{{ item.entry.description }}</p>
+                      }
+                      @if (item.entry.tasks?.length) {
+                        <ul class="timeline__tasks">
+                          @for (task of item.entry.tasks; track $index; let t = $index) {
+                            <li [style.--i]="t">{{ task }}</li>
+                          }
+                        </ul>
+                      }
+                      @if (item.entry.tags?.length) {
+                        <ul class="timeline__tags" aria-label="Tecnologies">
+                          @for (tag of item.entry.tags; track tag) {
+                            <li>{{ tag }}</li>
+                          }
+                        </ul>
+                      }
+                      @if (item.entry.url) {
+                        <a
+                          class="timeline__link"
+                          [href]="item.entry.url"
+                          target="_blank"
+                          rel="noopener"
+                          [attr.tabindex]="openIdx() === i ? null : -1"
+                        >
+                          Visita la web <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+                        </a>
+                      }
+                    </div>
                   </div>
                 </article>
               </li>
@@ -202,6 +222,8 @@ export class Timeline {
 
   protected readonly active = signal(0);
   protected readonly dragging = signal(false);
+  /** Targeta oberta (imatge plegada i detall visible), o -1 si cap. */
+  protected readonly openIdx = signal(-1);
   protected readonly hintGone = signal(false);
   protected readonly ghostYear = computed(() => this.items()[this.active()]?.year ?? '');
   protected readonly pad = (n: number): string => String(n).padStart(2, '0');
@@ -222,6 +244,7 @@ export class Timeline {
   private raf = 0;
   private last = 0;
   private lastActive = -1;
+  private touchInput = false;
   private wheelLock = 0;
   private targetIdx = 0; // targeta on va (o és) la cinta
   private diaY = 0; // centre vertical dels diamants dins la cinta
@@ -297,8 +320,36 @@ export class Timeline {
 
   // ---- Interacció ---------------------------------------------------------
 
+  // ---- Targeta oberta ---------------------------------------------------------
+
+  /** El cursor es mou sobre una targeta: s'obre si és l'activa i el cursor es queda quiet. */
+  protected onCardMove(i: number, e: PointerEvent): void {
+    this.touchInput = e.pointerType === 'touch';
+    if (this.touchInput) return; // al tàctil s'obre amb un toc
+    this.armOpen(i);
+  }
+
+  protected closeCard(): void {
+    if (this.openIdx() !== -1) this.openIdx.set(-1);
+  }
+
+  protected onCardClick(i: number, e: MouseEvent): void {
+    if ((e.target as HTMLElement).closest('a')) return;
+    if (i !== this.active()) return this.go(i);
+    if (this.touchInput) this.openIdx.set(this.openIdx() === i ? -1 : i);
+  }
+
+  private armOpen(i: number): void {
+    if (this.openIdx() === i || i !== this.active() || this.drag?.active) return;
+    // S'obre a l'instant en posar-hi el cursor (si la cinta ja ha arribat).
+    // Si encara es mou, ho torna a provar quan arriba (final de la molla).
+    const settled = Math.abs(this.target - this.cur) <= ARRIVED_PX;
+    if (settled && this.entries[i]?.card.matches(':hover')) this.openIdx.set(i);
+  }
+
   protected go(i: number): void {
     const n = this.items().length;
+    this.closeCard();
     this.hintGone.set(true);
     this.targetIdx = Math.max(0, Math.min(n - 1, i));
     this.target = this.offsetFor(this.targetIdx);
@@ -308,6 +359,12 @@ export class Timeline {
   protected onKey(e: KeyboardEvent): void {
     if (e.target !== this.stage().nativeElement) return;
     const n = this.items().length;
+    if (e.key === 'Enter' || e.key === ' ') {
+      // Amb el teclat, Intro obre o tanca la targeta activa.
+      e.preventDefault();
+      this.openIdx.set(this.openIdx() === this.active() ? -1 : this.active());
+      return;
+    }
     const next = { ArrowRight: this.targetIdx + 1, ArrowLeft: this.targetIdx - 1, Home: 0, End: n - 1 }[e.key];
     if (next === undefined) return;
     e.preventDefault();
@@ -320,7 +377,9 @@ export class Timeline {
     if (el === this.stage().nativeElement || !el.matches(':focus-visible')) return;
     const li = el.closest('.timeline__item');
     const i = this.entries.findIndex((entry) => entry.li === li);
-    if (i >= 0) this.go(i);
+    if (i < 0) return;
+    if (i === this.active()) this.openIdx.set(i);
+    else this.go(i);
   }
 
   protected onDown(e: PointerEvent): void {
@@ -329,6 +388,7 @@ export class Timeline {
     // Si la cinta encara s'està movent, l'arrossegament parteix d'on es veu ara (no del destí),
     // perquè no faci cap salt en agafar-la.
     this.target = this.cur;
+    this.touchInput = e.pointerType === 'touch';
     this.drag = {
       id: e.pointerId,
       x0: e.clientX,
@@ -354,6 +414,7 @@ export class Timeline {
     if (!d.active) {
       if (Math.abs(dx) < 6) return;
       d.active = true;
+      this.closeCard(); // només es tanca en arrossegar de debò, no en fer un simple clic
       stage.setPointerCapture(e.pointerId);
       this.dragging.set(true);
       this.hintGone.set(true);
@@ -376,6 +437,7 @@ export class Timeline {
     this.drag = null;
     this.dragging.set(false);
     if (!d.active) return;
+    if (e.pointerType !== 'touch') this.armOpen(this.active()); // el cursor segueix sobre la targeta
     // La velocitat dels últims 100 ms decideix fins a quina targeta arrossega la inèrcia.
     const recent = d.samples.filter((s) => e.timeStamp - s.t < 100);
     let v = 0;
@@ -455,7 +517,11 @@ export class Timeline {
     }
     this.paint();
     if (this.drag?.active || this.cur !== this.target) this.raf = requestAnimationFrame(this.frame);
-    else this.last = 0;
+    else {
+      this.last = 0;
+      // Ha arribat: si el cursor ja és sobre la targeta (p. ex. amb la roda), també s'hi pot obrir.
+      if (!this.touchInput) this.armOpen(this.active());
+    }
   };
 
   /** Pinta tot a partir de "cur": cinta, línia de progrés, diamants, escala de targetes i paral·laxi. */
@@ -503,6 +569,7 @@ export class Timeline {
     if (i === this.lastActive) return;
     this.lastActive = i;
     this.active.set(i);
+    if (this.openIdx() !== -1 && this.openIdx() !== i) this.openIdx.set(-1);
     // Reinicia l'animació de l'any gegant.
     const ghost = this.ghost().nativeElement;
     ghost.classList.remove('swap');

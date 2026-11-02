@@ -1,4 +1,4 @@
-@use 'tokens' as *;
+﻿@use 'tokens' as *;
 
 // Cronologia horitzontal (app-timeline) ------------------------------------
 // Regió: només els rails de fora, sense marge, perquè l'escenari arribi de rail a rail.
@@ -26,11 +26,15 @@
 
 .block-timeline {
   --tl-card: min(84vw, 540px);
+  --tl-h: 560px;
+  --tl-head: 148px; // alçada fixa de la capçalera (etiqueta, data, logo, títol i lloc)
+  --tl-media-open: 96px; // alçada de la imatge quan la targeta és oberta
   --tl-gap: 48px;
   display: block;
 
   @media (max-width: ($bp-md - 1)) {
     --tl-gap: 20px;
+    --tl-h: 600px;
   }
 }
 
@@ -270,6 +274,9 @@
 // L'escala i l'opacitat les posa el JavaScript segons la distància al centre.
 .timeline__card {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: var(--tl-h);
   overflow: hidden;
   border: 1px solid var(--line-strong);
   border-radius: $radius-lg;
@@ -303,39 +310,94 @@
   }
 }
 
-// Imatge de dalt; si falta el fitxer es queda el fons de graella.
+// Imatge de dalt. L'alçada té dos valors fixos (tancada i oberta) i només es transiciona
+// aquesta: així el moviment és d'una sola passada, sense dependre del contingut del detall.
+// Si falta el fitxer es queda el fons de graella amb la icona.
 .timeline__media {
   position: relative;
-  height: 150px;
+  flex: none;
+  height: calc(var(--tl-h) - var(--tl-head));
   overflow: hidden;
+  transition: height 0.7s $ease-out;
+
+  .timeline__card.is-open & {
+    height: var(--tl-media-open);
+  }
   border-bottom: 1px solid var(--line);
   background-image:
     linear-gradient(var(--line) 1px, transparent 1px),
     linear-gradient(90deg, var(--line) 1px, transparent 1px);
   background-size: 32px 32px;
   background-position: center;
-
-  @media (max-width: ($bp-md - 1)) {
-    height: 120px;
-  }
 }
 
-.timeline__image {
+.timeline__ph {
   position: absolute;
   inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 56px;
+  color: color-mix(in srgb, #{$color-accent} 35%, transparent);
+  pointer-events: none;
+}
+
+// La imatge té sempre la mida de la targeta tancada i queda centrada: en plegar-se
+// només es retalla (mai es reescala), així es mou d'una sola passada amb la targeta.
+.timeline__image {
+  position: absolute;
+  left: 0;
+  top: 50%;
   width: 100%;
-  height: 100%;
+  height: calc(var(--tl-h) - var(--tl-head));
+  translate: 0 -50%;
   object-fit: cover;
   pointer-events: none;
 }
 
 .timeline__body {
   display: grid;
+  flex: none;
+  align-content: start;
   gap: 16px;
-  padding: 24px 28px 28px;
+  height: var(--tl-head);
+  box-sizing: border-box;
+  padding: 22px 28px 24px;
 
   @media (max-width: ($bp-md - 1)) {
-    padding: 20px 20px 24px;
+    padding: 18px 20px 20px;
+  }
+}
+
+// Detall: ocupa l'espai que deixa la imatge en plegar-se; només es mostra amb un fos
+// (la imatge fa el moviment, el detall no canvia de mida).
+.timeline__more {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.timeline__more-in {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  height: 100%;
+  padding-inline: 28px;
+  overflow-y: auto;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  &::after {
+    content: '';
+    height: 8px;
+  }
+
+  .timeline__card.is-open & {
+    opacity: 1;
+    transition: opacity 0.45s 0.25s ease;
+  }
+
+  @media (max-width: ($bp-md - 1)) {
+    padding-inline: 20px;
   }
 }
 
@@ -457,7 +519,7 @@
   }
 
   // Les tasques entren una a una quan la targeta passa a ser l'activa.
-  .timeline__item.is-active & li {
+  .timeline__card.is-open & li {
     animation: timeline-in 0.7s calc(120ms + var(--i, 0) * 80ms) $ease-out both;
   }
 }

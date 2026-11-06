@@ -1,0 +1,55 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Només permisos mínims: llegir el repo i publicar a Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # Angular 22 demana Node ^22.22.3 o ^24.15.0.
+          node-version: 24
+          cache: npm
+
+      - name: Instal·lar dependències
+        run: npm ci
+
+      # El base href ha de ser el nom del repo: https://jan-felip.github.io/portfoli/
+      - name: Build de producció
+        run: npx ng build --configuration production --base-href /portfoli/
+
+      # GitHub Pages no coneix les rutes de l'SPA: 404.html fa que els enllaços directes funcionin.
+      - name: Copiar 404.html per a l'SPA
+        run: cp dist/portfoli/browser/index.html dist/portfoli/browser/404.html
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/portfoli/browser
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
